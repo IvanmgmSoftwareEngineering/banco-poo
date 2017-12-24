@@ -1,10 +1,14 @@
 package General;
 
 public class Simulador {
-    private InterfazDeUsuario menu;
+    private InterfazDeUsuario MenuYEleccion;
     public void principal() throws Exception{
-        menu = new InterfazDeUsuario();
-        menu.muestraMenu();
+        MenuYEleccion = new InterfazDeUsuario();
+        MenuYEleccion.muestraMenu();
+
+
+
+
 
 
 

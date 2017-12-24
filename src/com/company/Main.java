@@ -23,7 +23,7 @@ public class Main {
 
 
 
-            
+
         }
         catch (Exception castException){
             System.out.println("La opción debe ser numérica");

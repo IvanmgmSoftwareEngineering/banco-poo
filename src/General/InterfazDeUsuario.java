@@ -3,6 +3,7 @@ package General;
 public class InterfazDeUsuario {
     Escaner leeTeclado;
 
+
     public void muestraMenu() throws Exception{
         int eleccion;
         do {
@@ -53,6 +54,7 @@ public class InterfazDeUsuario {
             } else if (eleccion == 6) {
 
             } else if (eleccion == 7) {
+
 
             } else if (eleccion == 8) {
 
