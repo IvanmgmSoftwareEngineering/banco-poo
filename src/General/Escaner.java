@@ -1,15 +1,11 @@
 package General;
 import java.util.Scanner;
 
-public class Escaner {
-    String pulsaciones;
+public class Escaner  {
 
-    public void Escaner(){
+    public int lee() throws Exception{
         Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
-        pulsaciones = entradaEscaner.nextLine ();
+        return  entradaEscaner.nextInt ();
     }
 
-    public String getPulsaciones() {
-        return pulsaciones;
-    }
 }
