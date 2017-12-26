@@ -1,28 +1,128 @@
 package General;
 
-import ExcepcionesPropias.IntentsLimitAchieveException;
-import ExcepcionesPropias.ObjetoEscannerNoPasadoConstructorInterfazDeUsuario;
+import ExcepcionesPropias.*;
 
 public class InterfazDeUsuario {
+
+    //ESPACIO PARA CONSTANTES
+    private final int INTENTOS = 5;
+    // FIN CONSTANTES------------
+
+    //ESPACIO RESERVADO PARA VARIABLES
     Escaner leeTeclado;
     private int eleccion;
-    private int intentos;
+    private String nombreEmpresa;
+    private String nombrePersona;
+    private String dni;
+    private double valorActualEmpresa;
+    // -FIN VARIABLES
 
-
+    //ESPACIO RESERVADO PARA CONSTRUCTORES
+    //constructor por defecto
     public InterfazDeUsuario() {
     }
 
+    //constructor que recibe un objeto tipo escaner como parametro de entrada
     public InterfazDeUsuario(Escaner leeTeclado) {
         this.leeTeclado = leeTeclado;
     }
 
+    // -FIN CONSTRUCTORES
+
+    //ESPACIO RESERVADO PARA GETTERS
     public int getEleccion() {
         return eleccion;
     }
 
-    public void menu() {
-        System.out.println("********************** MENU *********************");
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
 
+    public double getValorActualEmpresa() {
+        return valorActualEmpresa;
+    }
+
+    public String getNombrePersona() {
+        return nombrePersona;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    // -FIN GETTERS
+
+    //ESPACIO RESERVADO PARA METODOS PRIVADOS DE LA CLASE
+
+    /*Nombre método: leeCadenaTextoTeclado
+      Entradas: ninguna
+      Salidas: String (cadena de caracteres introducidos por teclado)
+      Excepciones: IntentsLimitAchieveException
+      Descripción: utiliza el objeto escaner de la clase para leer de teclado una cade de caracteres. Si el formato de la cadena no es correcxto y se superan el límite de intentos se lanza una excepción.
+      */
+    private String leeCadenaTextoTeclado() throws IntentsLimitAchieveException {
+        String datos;
+        boolean encontrado;
+        int intentos;
+        int i = 0;
+        intentos = INTENTOS;
+        datos = leeTeclado.leeDatos();
+        char letraNombre;
+        while (intentos > 0) {
+            encontrado = false;
+            datos = leeTeclado.leeDatos();
+            while (!encontrado && i < datos.length()) {
+                letraNombre = datos.charAt(i);
+                if (!(((letraNombre >= 65) && (letraNombre <= 90)) || ((letraNombre >= 97) && (letraNombre <= 122)))) {
+                    encontrado = true;
+                }
+                i = i + 1;
+            }
+            if (encontrado) {
+                System.out.println("El nombre debe contener caracteres válidos; no números, no acentos, solo letras desde a-z o A-Z ");
+                intentos = intentos - 1;
+                System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                System.out.print("Nombre empresa: ");
+            } else {
+                return datos;
+            }
+        }
+        throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
+    }
+
+    /*Nombre método: leeNumeroDecimalTeclado
+      Entradas: ninguna
+      Salidas: double (numero introducido por teclado)
+      Excepciones: IntentsLimitAchieveException
+      Descripción: utiliza el objeto escaner de la clase para leer de teclado un número. Si el número es no positivo y se superan el límite de intentos se lanza una excepción.
+      */
+    private double leeNumeroDecimalTeclado() throws IntentsLimitAchieveException {
+        double numero;
+        int intentos;
+        intentos = INTENTOS;
+        while (intentos > 0) {
+            numero = Double.valueOf(leeTeclado.leeDatos()).doubleValue();
+            if (numero < 0) {
+                intentos = intentos - 1;
+                System.out.println("El numero debe ser mayor o igual que cero;  no números negativos");
+                System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                System.out.print("Inserte valor: ");
+
+            }
+            return numero;
+        }
+
+        throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
+    }
+
+    /*Nombre método: menu
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: no
+      Descripción: imprime por pantalla el menú
+      */
+    private void menu() {
+        System.out.println("********************** MENU *********************");
         System.out.println("0.- Salir");
         System.out.println("----------------- ESTADO ----------------------");
         System.out.println("1.- Imprimir estado de los clientes");
@@ -49,92 +149,74 @@ public class InterfazDeUsuario {
         System.out.println("18.- Ejecutar operaciones pendientes");
         System.out.println("**************************************************");
     }
+    //-FIN METODOS PRIVADOS
 
 
-        public void muestraMenu() throws ClassCastException,IntentsLimitAchieveException,ObjetoEscannerNoPasadoConstructorInterfazDeUsuario{
+    //ESPACIO RESERVADO PARA METODOS PUBLICOS DE LA CLASE
+
+    /*Nombre método: AltaEmpresaBolsa
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: IntentsLimitAchieveException
+      Descripción: cambia el valor de los atributos de la clase llamados: nombreEmpresa y valorActualEmpresa, através de la solicitud por teclado de datos al usuario.
+      */
+
+    public void AltaEmpresaBolsa() throws IntentsLimitAchieveException {
+        System.out.println("Se va a proceder a dar de alta una nueva empresa en la bolsa de valores.");
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.print("Nombre empresa: ");
+        nombreEmpresa = this.leeCadenaTextoTeclado();
+        System.out.print("Valor actual empresa: ");
+        valorActualEmpresa = this.leeNumeroDecimalTeclado();
+    }
+
+    /*Nombre método: BajaEmpresaBolsa
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: IntentsLimitAchieveException
+      Descripción: cambia el valor de los atributos de la clase llamados: nombreEmpresa, através de la solicitud por teclado de datos al usuario.
+      */
+    public void BajaEmpresaBolsa() throws IntentsLimitAchieveException {
+        System.out.println("Se va a proceder a dar de baja una empresa en la bolsa de valores.");
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.print("Nombre empresa: ");
+        nombreEmpresa = this.leeCadenaTextoTeclado();
+
+    }
+
+    /*Nombre método: muestraMenu
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: ClassCastException,IntentsLimitAchieveException,ObjetoEscannerNoPasadoConstructorInterfazDeUsuario
+      Descripción: Muestra el menu y pide al usuario ingresar un valor por teclado que se corresponda con una de las opciones del menu. Si esa entrada no es una de las opciones del menu o se supera el limite de intentos entonces se lanza excepcion.
+      */
+    public void muestraMenu() throws ClassCastException, IntentsLimitAchieveException, ObjetoEscannerNoPasadoConstructorInterfazDeUsuario {
+        int intentos;
         do {
             this.menu();
             System.out.print("Inserte la opción deseada: ");
             try {
-                eleccion = leeTeclado.lee();
-                intentos = 5;
+                eleccion = leeTeclado.leeSeleccionMenu();
+                intentos = INTENTOS;
                 while ((eleccion < 0) || (eleccion > 18)) {
-                    if (intentos == 0){
+                    if (intentos == 0) {
                         throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
                     }
                     this.menu();
                     System.out.println("¡La opción solicitada no existe; escoja una opción entre las mostradas en el menú!");
-                    System.out.print("Inserte la opción deseada (le quedan "+ intentos +" intentos): ");
-                    eleccion = leeTeclado.lee();
-                    intentos = intentos -1;
+                    System.out.print("Inserte la opción deseada (le quedan " + intentos + " intentos): ");
+                    eleccion = leeTeclado.leeSeleccionMenu();
+                    intentos = intentos - 1;
                 }
-
-            }
-            catch(ClassCastException eleccionNoEsNumeroEntero ){
+            } catch (ClassCastException eleccionNoEsNumeroEntero) {
                 throw eleccionNoEsNumeroEntero;
-            }
-            catch(NullPointerException e ) {
+            } catch (NullPointerException e) {
                 throw new ObjetoEscannerNoPasadoConstructorInterfazDeUsuario("La clase 'Interfaz Ususario' debe recibir un objeto de tipo 'Escanner' para funcionar correctamente");
             }
-
-
         }
-            while (eleccion != 0);
+        while (eleccion != 0);
 
-            System.out.println("Adios");
+        System.out.println("Adios");
+    }
 
-
-
-
-
-        }
-
-        /*  while((eleccion != "0")&&(eleccion != "1")&&(eleccion != "2")&&(eleccion != "3")&&(eleccion != "4")&&(eleccion != "5")&&(eleccion != "6")&&(eleccion != "7")&&(eleccion != "8")&&(eleccion != "9")&&(eleccion != "10")&&(eleccion != "11")&&(eleccion != "12")&&(eleccion != "13")&&(eleccion != "14")&&(eleccion != "15")&&(eleccion != "16")&&(eleccion != "17")&&(eleccion != "18")){
-                System.out.println("La opcion solicitada no existe; escoja una opción entre las mostradas en el menú");
-                leeTeclado = new Escaner();
-                eleccion = leeTeclado.lee();
-            }
-
-            if (eleccion == "1") {
-            } else if (eleccion == "2") {
-            } else if (eleccion == "3") {
-
-            } else if (eleccion == "4") {
-
-            } else if (eleccion == "5") {
-
-            } else if (eleccion == "6") {
-
-            } else if (eleccion == "7") {
-
-            } else if (eleccion == "8") {
-
-            } else if (eleccion == "9") {
-
-            } else if (eleccion == "10") {
-
-            } else if (eleccion == "11") {
-
-            } else if (eleccion == "12") {
-
-            } else if (eleccion == "13") {
-
-            } else if (eleccion == "14") {
-
-            } else if (eleccion == "15") {
-
-            } else if (eleccion == "16") {
-
-            } else if (eleccion == "17") {
-
-            } else if (eleccion == "18") {
-
-            }
-
-
-
-            }
-            while (eleccion != "0");
-
-            System.out.println("Adios");*/
 }
