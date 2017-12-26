@@ -14,7 +14,8 @@ public class InterfazDeUsuario {
     private String nombreEmpresa;
     private String nombrePersona;
     private String dni;
-    private double valorActualEmpresa;
+    private float saldo;
+    private float valorActualEmpresa;
     // -FIN VARIABLES
 
     //ESPACIO RESERVADO PARA CONSTRUCTORES
@@ -38,7 +39,7 @@ public class InterfazDeUsuario {
         return nombreEmpresa;
     }
 
-    public double getValorActualEmpresa() {
+    public float getValorActualEmpresa() {
         return valorActualEmpresa;
     }
 
@@ -50,6 +51,9 @@ public class InterfazDeUsuario {
         return dni;
     }
 
+    public float getSaldo() {
+        return saldo;
+    }
     // -FIN GETTERS
 
     //ESPACIO RESERVADO PARA METODOS PRIVADOS DE LA CLASE
@@ -60,32 +64,82 @@ public class InterfazDeUsuario {
       Excepciones: IntentsLimitAchieveException
       Descripción: utiliza el objeto escaner de la clase para leer de teclado una cade de caracteres. Si el formato de la cadena no es correcxto y se superan el límite de intentos se lanza una excepción.
       */
-    private String leeCadenaTextoTeclado() throws IntentsLimitAchieveException {
+    private String leeCadenaTextoTeclado(String opcion) throws IntentsLimitAchieveException {
         String datos;
         boolean encontrado;
         int intentos;
-        int i = 0;
+        int i;
         intentos = INTENTOS;
         datos = leeTeclado.leeDatos();
-        char letraNombre;
-        while (intentos > 0) {
-            encontrado = false;
-            datos = leeTeclado.leeDatos();
-            while (!encontrado && i < datos.length()) {
-                letraNombre = datos.charAt(i);
-                if (!(((letraNombre >= 65) && (letraNombre <= 90)) || ((letraNombre >= 97) && (letraNombre <= 122)))) {
-                    encontrado = true;
+        if(opcion == "opcionNombre") {
+            char letraNombre;
+            while (intentos > 0) {
+                encontrado = false;
+                i=0;
+                while (!encontrado && i < datos.length()) {
+                    letraNombre = datos.charAt(i);
+                    if (!(((letraNombre >= 65) && (letraNombre <= 90)) || ((letraNombre >= 97) && (letraNombre <= 122)))) {
+                        encontrado = true;
+                    }
+                    i = i + 1;
                 }
-                i = i + 1;
+                if (encontrado) {
+                    System.out.println("El nombre debe contener caracteres válidos; no números, no acentos, solo letras desde a-z o A-Z ");
+                    intentos = intentos - 1;
+                    System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                    System.out.print("Nombre empresa: ");
+                    datos = leeTeclado.leeDatos();
+
+                } else {
+                    return datos;
+                }
             }
-            if (encontrado) {
-                System.out.println("El nombre debe contener caracteres válidos; no números, no acentos, solo letras desde a-z o A-Z ");
-                intentos = intentos - 1;
-                System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
-                System.out.print("Nombre empresa: ");
-            } else {
-                return datos;
+        }
+        else if (opcion =="opcionDNI") {
+            char caracterDNI;
+            while (intentos > 0) {
+                encontrado = false;
+                i=0;
+                if(datos.length()!=9){//el numerod e caracteres es distinto de 9
+                    intentos = intentos - 1;
+                    System.out.println("El dni de contener 9 caracteres de los cuales: 8 son numéricos y el restante es una letra");
+                    System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                    System.out.print("DNI: ");
+                    datos = leeTeclado.leeDatos();
+                }
+                else{// Sabemos que el numero de caracteres es 9. Miramos si son correctos
+                    while (!encontrado && i < datos.length()) {
+                        caracterDNI = datos.charAt(i);
+                        //alguno/s de los carteres introducidos no se corresponden con caracteres dentro de los permitidos(0-9, a-z, A-Z).
+                        if (!(((caracterDNI >= 65) && (caracterDNI <= 90)) || ((caracterDNI >= 97) && (caracterDNI <= 122)) || (caracterDNI >= 48) && (caracterDNI <= 57)))
+                            encontrado = true;
+
+                        if (encontrado) {
+                            System.out.println("El dni debe contener caracteres válidos (0-9, a-z, A-Z)");
+                            intentos = intentos - 1;
+                            System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                            System.out.print("DNI: ");
+                            datos = leeTeclado.leeDatos();
+                        }
+                    }
+                    //En este punto sabemos que hay 9 caracteres y todos entan dentro de los permitidos (0-9, a-z, A-Z). Entonces ahora comprobamos que los 8 primeros son numeros y el ultimo es una letra
+                    int j=0;
+                    while((!encontrado)&&(j<8)){
+                        caracterDNI= datos.charAt(j);
+                        if(!(((caracterDNI >= 65) && (caracterDNI <= 90)) || ((caracterDNI >= 97) && (caracterDNI <= 122)))) {
+                            encontrado = true;
+                        }
+                        if (encontrado) {
+                            System.out.println("El dni debe contener caracteres los 8 primeros carateres (a-z o A-Z) y el ultimo carater numerico (0-9)");
+                            intentos = intentos - 1;
+                            System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                            System.out.print("DNI: ");
+                            datos = leeTeclado.leeDatos();
+                        }
+                    }
+                }
             }
+            return datos;
         }
         throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
     }
@@ -96,12 +150,12 @@ public class InterfazDeUsuario {
       Excepciones: IntentsLimitAchieveException
       Descripción: utiliza el objeto escaner de la clase para leer de teclado un número. Si el número es no positivo y se superan el límite de intentos se lanza una excepción.
       */
-    private double leeNumeroDecimalTeclado() throws IntentsLimitAchieveException {
-        double numero;
+    private float leeNumeroDecimalTeclado() throws IntentsLimitAchieveException {
+        float numero;
         int intentos;
         intentos = INTENTOS;
         while (intentos > 0) {
-            numero = Double.valueOf(leeTeclado.leeDatos()).doubleValue();
+            numero = Float.valueOf(leeTeclado.leeDatos()).floatValue();
             if (numero < 0) {
                 intentos = intentos - 1;
                 System.out.println("El numero debe ser mayor o igual que cero;  no números negativos");
@@ -162,12 +216,32 @@ public class InterfazDeUsuario {
       */
 
     public void AltaEmpresaBolsa() throws IntentsLimitAchieveException {
-        System.out.println("Se va a proceder a dar de alta una nueva empresa en la bolsa de valores.");
+        System.out.println("------OPCIÓN 9 SELECCIONADA: AÑADIR EMPRESA A BOLSA------");
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
-        System.out.print("Nombre empresa: ");
-        nombreEmpresa = this.leeCadenaTextoTeclado();
-        System.out.print("Valor actual empresa: ");
-        valorActualEmpresa = this.leeNumeroDecimalTeclado();
+        System.out.println();
+        System.out.print("      Nombre empresa: ");//6 espacios
+        this.nombreEmpresa = this.leeCadenaTextoTeclado("opcionNombre");
+        System.out.print("      Valor actual empresa: ");
+        this.valorActualEmpresa = this.leeNumeroDecimalTeclado();
+    }
+
+    /*Nombre método: AltaClienteBanco
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: IntentsLimitAchieveException
+      Descripción: cambia el valor de los atributos de la clase llamados: nombreEmpresa y valorActualEmpresa, através de la solicitud por teclado de datos al usuario.
+      */
+
+    public void AltaClienteBanco() throws IntentsLimitAchieveException {
+        System.out.println("------OPCIÓN 3 SELECCIONADA: AÑADIR CLIENTE A BANCO------");
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
+        System.out.print("      Nombre cliente: ");//6 espacios
+        this.nombrePersona = this.leeCadenaTextoTeclado("opcionNombre");
+        System.out.print("      DNI cliente: ");
+        this.dni = this.leeCadenaTextoTeclado("opcionDNI");
+        System.out.print("      Saldo: ");
+        this.saldo = this.leeNumeroDecimalTeclado();
     }
 
     /*Nombre método: BajaEmpresaBolsa
@@ -180,7 +254,21 @@ public class InterfazDeUsuario {
         System.out.println("Se va a proceder a dar de baja una empresa en la bolsa de valores.");
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
         System.out.print("Nombre empresa: ");
-        nombreEmpresa = this.leeCadenaTextoTeclado();
+        nombreEmpresa = this.leeCadenaTextoTeclado("opcionNombre");
+
+    }
+
+    /*Nombre método: BajaClienteBanco
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: IntentsLimitAchieveException
+      Descripción: cambia el valor de los atributos de la clase llamados: nombreClientes, através de la solicitud por teclado de datos al usuario.
+      */
+    public void BajaClienteBanco() throws IntentsLimitAchieveException {
+        System.out.println("Se va a proceder a dar de baja un cliente en el banco.");
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.print("Dni: ");
+        dni = this.leeCadenaTextoTeclado("opcionDNI");
 
     }
 
@@ -192,12 +280,11 @@ public class InterfazDeUsuario {
       */
     public void muestraMenu() throws ClassCastException, IntentsLimitAchieveException, ObjetoEscannerNoPasadoConstructorInterfazDeUsuario {
         int intentos;
-        do {
+        intentos = INTENTOS;
             this.menu();
             System.out.print("Inserte la opción deseada: ");
             try {
                 eleccion = leeTeclado.leeSeleccionMenu();
-                intentos = INTENTOS;
                 while ((eleccion < 0) || (eleccion > 18)) {
                     if (intentos == 0) {
                         throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
@@ -208,15 +295,11 @@ public class InterfazDeUsuario {
                     eleccion = leeTeclado.leeSeleccionMenu();
                     intentos = intentos - 1;
                 }
+
             } catch (ClassCastException eleccionNoEsNumeroEntero) {
                 throw eleccionNoEsNumeroEntero;
             } catch (NullPointerException e) {
                 throw new ObjetoEscannerNoPasadoConstructorInterfazDeUsuario("La clase 'Interfaz Ususario' debe recibir un objeto de tipo 'Escanner' para funcionar correctamente");
             }
         }
-        while (eleccion != 0);
-
-        System.out.println("Adios");
     }
-
-}

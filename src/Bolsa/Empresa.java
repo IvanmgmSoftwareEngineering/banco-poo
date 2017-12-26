@@ -1,10 +1,10 @@
 package Bolsa;
 public class Empresa {
     private String nombre;
-    private double valorTituloActual;
-    private double valorTituloPrevio;
+    private float valorTituloActual;
+    private float valorTituloPrevio;
 
-    public Empresa(String nombre, double valorTituloActual) {
+    public Empresa(String nombre, float valorTituloActual) {
         this.nombre = nombre;
         this.valorTituloActual = valorTituloActual;
         this.valorTituloPrevio = valorTituloActual;
@@ -14,11 +14,11 @@ public class Empresa {
         return nombre;
     }
 
-    public double getValorTituloActual() {
+    public float getValorTituloActual() {
         return this.valorTituloActual;
     }
 
-    public double getValorTituloPrevio() {
+    public float getValorTituloPrevio() {
         return valorTituloPrevio;
     }
 
@@ -26,20 +26,35 @@ public class Empresa {
         this.nombre = nombre;
     }
 
-    public void setValorTituloActual(double valorTituloActual) {
+    public void setValorTituloActual(float valorTituloActual) {
         this.valorTituloActual = valorTituloActual;
     }
 
-    public void setValorTituloPrevio(double valorTituloPrevio) {
+    public void setValorTituloPrevio(float valorTituloPrevio) {
         this.valorTituloPrevio = valorTituloPrevio;
     }
 
 
-    public double calculaVariacion()  {
+    public float calculaVariacion()  {
         return (valorTituloActual-valorTituloPrevio)*100;
     }
 
     public String toString (){
-        return this.nombre + this.valorTituloActual + this.calculaVariacion();
+        return "Nombre Empresa: "+this.nombre + "  |||| Valor Actual Título: "+this.valorTituloActual +"  ||||Variacion: "+ this.calculaVariacion();
     }
+
+    @Override
+    public boolean equals (Object o) {
+        if(o instanceof Empresa) {
+            Empresa empresa = (Empresa) o;
+            return this.nombre.equals(empresa.nombre);
+        }
+        else return false;
+
+    }
+    @Override
+    public int hashCode(){
+        return this.nombre.length();
+    }
+
 }
