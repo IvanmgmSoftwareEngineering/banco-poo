@@ -1,6 +1,6 @@
 package General;
 
-import Banco.Banco;
+import Banco.*;
 import Bolsa.BolsaDeValores;
 import Bolsa.Empresa;
 import ExcepcionesPropias.*;
@@ -65,54 +65,80 @@ public class Simulador {
             }
             interfaz.muestraMenu();
             eleccion = interfaz.getEleccion();
-
-            if (eleccion == 1) {
-
-
-            } else if (eleccion == 2) {
-                bolsa.showEmpresas();
-
-            } else if (eleccion == 3) {
-
-            } else if (eleccion == 4) {
-
-            } else if (eleccion == 5) {
-
-            } else if (eleccion == 6) {
-
-            } else if (eleccion == 7) {
+            while (eleccion !=0) {
+                if (eleccion == 1) {
+                    banco.showClientes();
+                    System.out.print("Pulse la tecla ENTER para volver al MENU");
+                    interfaz.leeTeclado.leeDatos();
 
 
-            } else if (eleccion == 8) {
 
-            } else if (eleccion == 9) {
-                interfaz.AltaEmpresaBolsa();
-                Empresa empresa1 = new Empresa(interfaz.getNombreEmpresa(),interfaz.getValorActualEmpresa());
-                bolsa.addEmpresa(empresa1);
+                } else if (eleccion == 2) {
+                    bolsa.showEmpresas();
+                    System.out.print("Pulse la tecla ENTER para volver al MENU");
+                    interfaz.leeTeclado.leeDatos();
 
-            } else if (eleccion == 10) {
-                interfaz.BajaEmpresaBolsa();
-                bolsa.removeEmpresa(interfaz.getNombreEmpresa());
+                } else if (eleccion == 3) {
+                    interfaz.AltaClienteBanco();
+                    Cliente cliente1 = new Cliente(interfaz.getNombrePersona(), interfaz.getDni(),interfaz.getSaldo());
+                    banco.addCliente(cliente1);
+                    System.out.print("Pulse la tecla ENTER para volver al MENU");
+                    interfaz.leeTeclado.leeDatos();
 
-            } else if (eleccion == 11) {
+                } else if (eleccion == 4) {
+                    interfaz.BajaClienteBanco();
+                    banco.removeCliente(interfaz.getDni());
+                    System.out.print("Pulse la tecla ENTER para volver al MENU");
+                    interfaz.leeTeclado.leeDatos();
 
-            } else if (eleccion == 12) {
 
-            } else if (eleccion == 13) {
+                } else if (eleccion == 5) {
 
-            } else if (eleccion == 14) {
+                } else if (eleccion == 6) {
 
-            } else if (eleccion == 15) {
+                } else if (eleccion == 7) {
 
-            } else if (eleccion == 16) {
 
-            } else if (eleccion == 17) {
+                } else if (eleccion == 8) {
 
-            } else if (eleccion == 18) {
+                } else if (eleccion == 9) {
+                    interfaz.AltaEmpresaBolsa();
+                    Empresa empresa1 = new Empresa(interfaz.getNombreEmpresa(), interfaz.getValorActualEmpresa());
+                    bolsa.addEmpresa(empresa1);
+                    System.out.print("Pulse la tecla ENTER para volver al MENU");
+                    interfaz.leeTeclado.leeDatos();
 
+                } else if (eleccion == 10) {
+                    interfaz.BajaEmpresaBolsa();
+                    bolsa.removeEmpresa(interfaz.getNombreEmpresa());
+                    System.out.print("Pulse la tecla ENTER para volver al MENU");
+                    interfaz.leeTeclado.leeDatos();
+
+                } else if (eleccion == 11) {
+
+                } else if (eleccion == 12) {
+
+                } else if (eleccion == 13) {
+
+                } else if (eleccion == 14) {
+
+                } else if (eleccion == 15) {
+
+                } else if (eleccion == 16) {
+
+                } else if (eleccion == 17) {
+
+                } else if (eleccion == 18) {
+
+                }
+                interfaz.muestraMenu();
+                eleccion = interfaz.getEleccion();
             }
+            System.out.println("Adios");
 
-        }
+
+
+    }
 
         }
 

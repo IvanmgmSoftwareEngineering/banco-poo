@@ -2,6 +2,8 @@ package com.company;
 
 import ExcepcionesPropias.*;
 import General.*;
+import Bolsa.*;
+import Banco.*;
 
 
 public class Main {
@@ -10,22 +12,12 @@ public class Main {
         String respuesta;
 
         try {
-            Escaner escanner = new Escaner();
-            InterfazDeUsuario interfazUsusario = new InterfazDeUsuario(escanner);
-            Simulador simula = new Simulador(interfazUsusario);
-            simula.principal();
-
-
-
-
-
-
-
-
-
-
-
-
+            Escaner escanner = new Escaner();//Creamo un objeto de tipo Escaner
+            InterfazDeUsuario interfazUsusario = new InterfazDeUsuario(escanner); //creamos un objeto de tipo InterfazDeUsuario y utilizamos el contructor que recibe un parametro de entrada de tipo Escaner
+            BolsaDeValores bolsa = new BolsaDeValores ("Bolsa Española");//Creamos un objeto de tipo BolsaDeValores.
+            Banco banco = new Banco ("Banco Bilbao Vizcaya");//Creamos un banco
+            Simulador simula = new Simulador(interfazUsusario,bolsa,banco); // Creamos un objeto de tipo Simulador y utilizamos el constructor que recibe como parmatros de entrada un objeto de tipo InterfazDeUsuario y un objeto de tipo BolsaDeValores9
+            simula.principal();// Llamamos al metodo principal() de la clase Simulador.
 
 
 
@@ -43,7 +35,7 @@ public class Main {
         catch (ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador e3) {
             respuesta = e3.getMessage();
         }
-        
+
         System.err.println(respuesta);
 
 
