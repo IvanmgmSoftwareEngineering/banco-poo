@@ -1,11 +1,7 @@
 package com.company;
 
-import ExcepcionesPropias.IntentsLimitAchieveException;
-import ExcepcionesPropias.ObjetoEscannerNoPasadoConstructorInterfazDeUsuario;
-import ExcepcionesPropias.ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador;
-import General.Escaner;
-import General.InterfazDeUsuario;
-import General.Simulador;
+import ExcepcionesPropias.*;
+import General.*;
 
 
 public class Main {
@@ -18,6 +14,8 @@ public class Main {
             InterfazDeUsuario interfazUsusario = new InterfazDeUsuario(escanner);
             Simulador simula = new Simulador(interfazUsusario);
             simula.principal();
+
+
 
 
 
@@ -45,6 +43,7 @@ public class Main {
         catch (ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador e3) {
             respuesta = e3.getMessage();
         }
+        
         System.err.println(respuesta);
 
 

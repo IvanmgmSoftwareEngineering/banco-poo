@@ -2,11 +2,13 @@ package General;
 
 import Banco.Banco;
 import Bolsa.BolsaDeValores;
+import Bolsa.Empresa;
 import ExcepcionesPropias.*;
 
 
 public class Simulador {
-    private InterfazDeUsuario MenuYEleccion;
+
+    private InterfazDeUsuario interfaz;
     private BolsaDeValores bolsa;
     private Banco banco;
     private int eleccion;
@@ -17,7 +19,7 @@ public class Simulador {
     }
 
     public Simulador(InterfazDeUsuario menuYEleccion) {
-        MenuYEleccion = menuYEleccion;
+        interfaz = menuYEleccion;
         this.constructorUtilizado = 1;
 
     }
@@ -28,7 +30,7 @@ public class Simulador {
     }
 
     public Simulador(InterfazDeUsuario menuYEleccion, BolsaDeValores bolsa) {
-        MenuYEleccion = menuYEleccion;
+        interfaz = menuYEleccion;
         this.bolsa = bolsa;
         this.constructorUtilizado =3;
     }
@@ -39,7 +41,7 @@ public class Simulador {
     }
 
     public Simulador(InterfazDeUsuario menuYEleccion, Banco banco) {
-        MenuYEleccion = menuYEleccion;
+        interfaz = menuYEleccion;
         this.constructorUtilizado =5;
     }
 
@@ -50,7 +52,7 @@ public class Simulador {
     }
 
     public Simulador(InterfazDeUsuario menuYEleccion, BolsaDeValores bolsa, Banco banco) {
-        MenuYEleccion = menuYEleccion;
+        interfaz = menuYEleccion;
         this.bolsa = bolsa;
         this.banco = banco;
         this.constructorUtilizado = 7;
@@ -61,14 +63,14 @@ public class Simulador {
             if ((this.constructorUtilizado==0)||(this.constructorUtilizado==2)||(this.constructorUtilizado==4)||(this.constructorUtilizado==6)) {
                 throw new ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador("La clase 'Simulador' debe recibir un objeto de tipo 'Interfaz de Usuario' para funcionar correctamente");
             }
-            MenuYEleccion.muestraMenu();
-            eleccion = MenuYEleccion.getEleccion();
+            interfaz.muestraMenu();
+            eleccion = interfaz.getEleccion();
 
             if (eleccion == 1) {
 
 
             } else if (eleccion == 2) {
-
+                bolsa.showEmpresas();
 
             } else if (eleccion == 3) {
 
@@ -84,8 +86,13 @@ public class Simulador {
             } else if (eleccion == 8) {
 
             } else if (eleccion == 9) {
+                interfaz.AltaEmpresaBolsa();
+                Empresa empresa1 = new Empresa(interfaz.getNombreEmpresa(),interfaz.getValorActualEmpresa());
+                bolsa.addEmpresa(empresa1);
 
             } else if (eleccion == 10) {
+                interfaz.BajaEmpresaBolsa();
+                bolsa.removeEmpresa(interfaz.getNombreEmpresa());
 
             } else if (eleccion == 11) {
 
