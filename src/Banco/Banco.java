@@ -1,6 +1,6 @@
 package Banco;
 
-import Bolsa.Empresa;
+import ExcepcionesPropias.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -59,6 +59,15 @@ public class Banco {
 
     //FIN ZONA GETTERS
 
+    //ZONA DE SETTERS
+
+    public void setBroker(AgenteDeInversiones broker) {
+        this.broker = broker;
+    }
+
+
+    //FIN ZONA SETTERS
+
     //ZONA DE METODOS PUBLICOS
 
     /*Nombre método: addCliente
@@ -92,7 +101,7 @@ public class Banco {
       Descripción: elimina un cliente de la lista.
       */
     public void removeCliente(String dniCliente) {
-        Cliente cliente = new Cliente("sdsd", dniCliente ,32);
+        Cliente cliente = new Cliente("sdsd", dniCliente, 32);
         if (!clientes.remove(cliente))
             System.out.println("El cliente que ha intendado borrar NO esta presente en el banco");
         else System.out.println("Cliente eliminado con exito!");
@@ -110,9 +119,53 @@ public class Banco {
         else {
             Iterator iterador = clientes.iterator();
             while (iterador.hasNext()) {
-                Empresa empresa = (Empresa) iterador.next();
-                System.out.println(empresa.toString());
+                Cliente cliente = (Cliente) iterador.next();
+                System.out.println(cliente.toString());
             }
         }
     }
+
+    /*Nombre método: promocionAClientePremium
+      Entradas: dni cliente
+      Salidas: nada
+      Excepciones:
+      Descripción: Promociona a un cleinte ya existente a premium asignandole a un gestor
+      */
+    public void promocionAClientePremium(String dniCliente) throws BancoNoTieneGestor {
+        boolean encontrado;
+        try {
+            Cliente cliente = new Cliente("sdsd", dniCliente, 32); //creamos este objeto auxiliar para comparar con los elemntos de la lista de clientes
+
+            if (this.broker == null) { // miro a ver si el banco tiene un gestor asociado
+                System.out.println("El bancco no tiene asignado ningún gestor");
+            } else {
+                encontrado = false;
+                Iterator iterador = clientes.iterator(); // creo un objeto Iterator para recorrer la coleccion
+                while (iterador.hasNext() && !encontrado) {
+                    Cliente cliente1 = (Cliente) iterador.next();
+                    if (cliente1.isEsPremium()) {
+                        System.out.println("El cliente con dni: " + dniCliente + " ya tiene categoria Premium y su gestor es: " + ((ClientePremium) cliente1).getNombreGestorDeInversiones());
+                    } else if (cliente.equals(cliente1)) {
+                        encontrado = true;
+                        cliente = cliente1;//meto en la varible cliente al objeto de la colleccion cliente1 que coincide con el en el dni
+                    } else {
+                        System.out.println("El cliente con dni: " + dniCliente + " no existe");
+                    }
+                }
+                if (encontrado) {
+                    Cliente clientePremium = new ClientePremium(cliente, this.broker.getNombre());// creo un nuevo objeto de tipo cliente como tipo estatico pero como tipo dinamico de tipo cliente premium utilizando el constructor que recibe a un cliente antiguo y el nombre del gestor
+                    clientes.remove(cliente); // borro de la coleccion al cliente antiguo, es decir el que no era premium
+                    clientes.add(clientePremium); // añado a la coleccion al cliente ya promocionado a premium
+                    System.out.println("El cliente con dni: " + dniCliente + " se le ha otorgado la categoria Premium y su gestor asignado es: " + this.broker.getNombre());
+
+                }
+            }
+        } catch (NullPointerException bancoNotieneGestor) {
+            throw new BancoNoTieneGestor("Se ha intentado promocionar a un cliente a premium sin que el banco tenga un gestor de inversiones");
+        }
+
+
+    }
 }
+
+

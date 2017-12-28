@@ -5,6 +5,8 @@ import Bolsa.BolsaDeValores;
 public class AgenteDeInversiones extends Persona {
     private BolsaDeValores bolsa;
 
+
+
     public AgenteDeInversiones(String nombre, String dni) {
         super(nombre, dni);
     }
@@ -13,6 +15,10 @@ public class AgenteDeInversiones extends Persona {
         super(nombre, dni);
         this.bolsa = bolsa;
     }
+
+
+
+
 
 
 }
