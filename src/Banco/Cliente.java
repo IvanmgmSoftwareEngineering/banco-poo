@@ -28,6 +28,15 @@ public class Cliente extends Persona {
         return this.esPremium;
     }
 
+
+
+
+
+    public String toString (){
+        //faltan añadir las acciones entre saldo y acciones
+            return "Nombre Cliente: "+this.nombre + "  ||||  dni: "+this.dni +"  ||||Saldo: "+ this.saldo+ "    |||| Categoria: NO Premium";
+    }
+
     @Override
     public boolean equals (Object o) {
         if(o instanceof Cliente) {
