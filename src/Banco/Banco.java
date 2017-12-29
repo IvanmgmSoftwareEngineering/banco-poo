@@ -1,7 +1,7 @@
 package Banco;
 
 import ExcepcionesPropias.*;
-
+import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -124,6 +124,16 @@ public class Banco {
             }
         }
     }
+
+    /*Nombre método: copiaSeguridadBanco
+      Entradas:nada
+      Salidas: nada
+      Excepciones: nada
+      Descripción: Serializa la informacion de los clientes que hay en el banco y los transforma en un fichero binario
+      */
+
+    public void copiaSeguridadBanco(){}
+
 
     /*Nombre método: promocionAClientePremium
       Entradas: dni cliente

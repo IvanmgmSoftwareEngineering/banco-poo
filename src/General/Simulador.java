@@ -4,6 +4,9 @@ import Banco.*;
 import Bolsa.BolsaDeValores;
 import Bolsa.Empresa;
 import ExcepcionesPropias.*;
+import Utilidades.Output;
+
+import java.io.IOException;
 
 
 public class Simulador {
@@ -58,7 +61,7 @@ public class Simulador {
         this.constructorUtilizado = 7;
     }
 
-    public void principal() throws BancoNoTieneGestor,ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador,ClassCastException, IntentsLimitAchieveException, ObjetoEscannerNoPasadoConstructorInterfazDeUsuario {
+    public void principal() throws IOException, BancoNoTieneGestor,ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador,ClassCastException, IntentsLimitAchieveException, ObjetoEscannerNoPasadoConstructorInterfazDeUsuario {
 
             if ((this.constructorUtilizado==0)||(this.constructorUtilizado==2)||(this.constructorUtilizado==4)||(this.constructorUtilizado==6)) {
                 throw new ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador("La clase 'Simulador' debe recibir un objeto de tipo 'Interfaz de Usuario' para funcionar correctamente");
@@ -68,9 +71,11 @@ public class Simulador {
             while (eleccion !=0) {
 
                 if (eleccion == 1) {// IMPRIMIR ESTADO DE LOS CLIENTES
+                    interfaz.muestraClientesBanco();
                     banco.showClientes();
 
                 } else if (eleccion == 2) {//IMPRIMIR ESTADO DE LAS EMPRESAS DE LA BOLSA
+                    interfaz.muestraEmpresasBanco();
                     bolsa.showEmpresas();
 
                 } else if (eleccion == 3) {//AÑADIR UN NUEVO CLIENTE AL BANCO
@@ -83,8 +88,10 @@ public class Simulador {
                     banco.removeCliente(interfaz.getDni());
 
                 } else if (eleccion == 5) {//REALIZAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
+                    interfaz.hazCopiaSeguridadBanco();
 
                 } else if (eleccion == 6) {//RESTAURAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
+                    interfaz.restauraCopiaSeguridadBanco();
 
                 } else if (eleccion == 7) { //MEJORAR A CLIENTE PREMIUM
                     interfaz.promocionaPremium();
@@ -104,8 +111,12 @@ public class Simulador {
                 } else if (eleccion == 11) {//ACTUALIZAR VALORES
 
                 } else if (eleccion == 12) {//REALIZAR COPIA DE SEGURIDAD BOLSA (EMPRESAS)
+                    Output serializa = new Output();
+                    interfaz.hazCopiaSeguridadBolsa();
+                    bolsa.copiaSeguridadEmpresas(interfaz.getPath(),serializa);
 
                 } else if (eleccion == 13) {//RESTAURAR COPIA DE SEGURIDAD DE LA BOLSA (EMPRESAS)
+                    interfaz.restauraCopiaSeguridadBolsa();
 
                 } else if (eleccion == 14) {//SOLICITAR COMPRA DE ACCIONES
 
@@ -118,6 +129,7 @@ public class Simulador {
                 } else if (eleccion == 18) {//EJECUTAR OPERACIONES PENDIENTES
 
                 }
+                System.out.println();
                 System.out.print("Pulse la tecla ENTER para volver al MENU");
                 interfaz.leeTeclado.leeDatos();
                 interfaz.muestraMenu();

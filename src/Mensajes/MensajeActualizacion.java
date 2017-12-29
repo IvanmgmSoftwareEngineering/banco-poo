@@ -1,4 +1,4 @@
 package Mensajes;
 
-public class MensajeActualizacion {
+public class MensajeActualizacion extends Mensaje {
 }

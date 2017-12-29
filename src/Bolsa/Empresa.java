@@ -1,5 +1,10 @@
 package Bolsa;
-public class Empresa {
+
+import java.io.Serializable;
+
+
+
+public class Empresa implements Serializable{
     private String nombre;
     private float valorTituloActual;
     private float valorTituloPrevio;
