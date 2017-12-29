@@ -44,9 +44,10 @@ public class Empresa implements Serializable{
         return (valorTituloActual-valorTituloPrevio)*100;
     }
 
-    public String toString (){
-        return "Nombre Empresa: "+this.nombre + "  |||| Valor Actual Título: "+this.valorTituloActual +"  ||||Variacion: "+ this.calculaVariacion();
+    public String toString(){
+        return "Nombre Empresa: "+this.nombre + "  |||| Valor Actual Título: "+this.valorTituloActual +"  |||| Variación: "+ this.calculaVariacion()+ " %" +"\n";
     }
+
 
     @Override
     public boolean equals (Object o) {

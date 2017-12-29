@@ -3,7 +3,7 @@ package Banco;
 import java.io.Serializable;
 import java.util.HashSet;
 
-public class Cliente extends Persona implements Serializable {
+public class Cliente extends Persona {
     protected float saldo;
     protected  boolean esPremium;
     protected HashSet<PaqueteDeAcciones> paquetesAcciones;
@@ -35,7 +35,7 @@ public class Cliente extends Persona implements Serializable {
 
     public String toString (){
         //faltan añadir las acciones entre saldo y acciones
-            return "Nombre Cliente: "+this.nombre + "  ||||  dni: "+this.dni +"  ||||Saldo: "+ this.saldo+ "    |||| Categoria: NO Premium";
+            return "Nombre Cliente: "+this.nombre + "  ||||  dni: "+this.dni +"  ||||Saldo: "+ this.saldo+ "    |||| Categoria: NO Premium"+"\n";
     }
 
     @Override

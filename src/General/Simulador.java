@@ -4,7 +4,7 @@ import Banco.*;
 import Bolsa.BolsaDeValores;
 import Bolsa.Empresa;
 import ExcepcionesPropias.*;
-import Utilidades.Output;
+import Utilidades.*;
 
 import java.io.IOException;
 
@@ -61,13 +61,13 @@ public class Simulador {
         this.constructorUtilizado = 7;
     }
 
-    public void principal() throws IOException, BancoNoTieneGestor,ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador,ClassCastException, IntentsLimitAchieveException, ObjetoEscannerNoPasadoConstructorInterfazDeUsuario {
+    public void principal() throws ClassNotFoundException,IOException, BancoNoTieneGestor,ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador,ClassCastException, IntentsLimitAchieveException, ObjetoEscannerNoPasadoConstructorInterfazDeUsuario {
 
             if ((this.constructorUtilizado==0)||(this.constructorUtilizado==2)||(this.constructorUtilizado==4)||(this.constructorUtilizado==6)) {
                 throw new ObjetoInterfazDeUsuarioNoPasadoConstructorSimulador("La clase 'Simulador' debe recibir un objeto de tipo 'Interfaz de Usuario' para funcionar correctamente");
             }
             interfaz.muestraMenu();
-            eleccion = interfaz.getEleccion();
+            eleccion = Integer.parseInt(interfaz.getEleccion());
             while (eleccion !=0) {
 
                 if (eleccion == 1) {// IMPRIMIR ESTADO DE LOS CLIENTES
@@ -88,10 +88,21 @@ public class Simulador {
                     banco.removeCliente(interfaz.getDni());
 
                 } else if (eleccion == 5) {//REALIZAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
-                    interfaz.hazCopiaSeguridadBanco();
+                    if(banco.getClientes().size()==0) System.out.println("El Banco no tiene clientes. No se puede guardar nada.");
+                    else {
+                        Output serializa = new Output();
+                        interfaz.hazCopiaSeguridadBanco();
+                        banco.copiaSeguridadBanco(interfaz.getPath(),serializa);
+                        System.out.println("Copia realizada con exito.");
+                        System.out.println();
+                    }
 
                 } else if (eleccion == 6) {//RESTAURAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
+                    Input deserializa = new Input();
                     interfaz.restauraCopiaSeguridadBanco();
+                    banco.restaurarCopiaSeguridadClientes(interfaz.getPath(),deserializa);
+                    System.out.println("Restauración realizada con exito.");
+                    System.out.println();
 
                 } else if (eleccion == 7) { //MEJORAR A CLIENTE PREMIUM
                     interfaz.promocionaPremium();
@@ -111,12 +122,22 @@ public class Simulador {
                 } else if (eleccion == 11) {//ACTUALIZAR VALORES
 
                 } else if (eleccion == 12) {//REALIZAR COPIA DE SEGURIDAD BOLSA (EMPRESAS)
-                    Output serializa = new Output();
-                    interfaz.hazCopiaSeguridadBolsa();
-                    bolsa.copiaSeguridadEmpresas(interfaz.getPath(),serializa);
+                    if(bolsa.getEmpresas().size()==0) System.out.println("la Bolsa no tiene empresas. No se puede guardar nada disco.");
+                    else {
+                        Output serializa = new Output();
+                        interfaz.hazCopiaSeguridadBolsa();
+                        bolsa.copiaSeguridadEmpresas(interfaz.getPath(), serializa);
+                        System.out.println("Copia realizada con exito.");
+                        System.out.println();
+                    }
 
                 } else if (eleccion == 13) {//RESTAURAR COPIA DE SEGURIDAD DE LA BOLSA (EMPRESAS)
+                    Input deserializa = new Input();
                     interfaz.restauraCopiaSeguridadBolsa();
+                    bolsa.restaurarCopiaSeguridadEmpresas(interfaz.getPath(),deserializa);
+                    System.out.println("Restauración realizada con exito.");
+                    System.out.println();
+
 
                 } else if (eleccion == 14) {//SOLICITAR COMPRA DE ACCIONES
 
@@ -133,7 +154,7 @@ public class Simulador {
                 System.out.print("Pulse la tecla ENTER para volver al MENU");
                 interfaz.leeTeclado.leeDatos();
                 interfaz.muestraMenu();
-                eleccion = interfaz.getEleccion();
+                eleccion = Integer.parseInt(interfaz.getEleccion());
             }
             System.out.println("Adios");
 

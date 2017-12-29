@@ -1,6 +1,10 @@
 package Banco;
 
+import Bolsa.Empresa;
 import ExcepcionesPropias.*;
+import Utilidades.Input;
+import Utilidades.Output;
+
 import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -117,12 +121,8 @@ public class Banco {
     public void showClientes() {
         if (clientes.size() == 0) System.out.println("No hay clientes en la banco!");
         else {
-            Iterator iterador = clientes.iterator();
-            while (iterador.hasNext()) {
-                Cliente cliente = (Cliente) iterador.next();
-                System.out.println(cliente.toString());
+                System.out.println(clientes.toString());
             }
-        }
     }
 
     /*Nombre método: copiaSeguridadBanco
@@ -132,8 +132,39 @@ public class Banco {
       Descripción: Serializa la informacion de los clientes que hay en el banco y los transforma en un fichero binario
       */
 
-    public void copiaSeguridadBanco(){}
+    public void copiaSeguridadBanco(String path, Output serializa)throws IOException {
 
+        serializa.abrir(path);
+        Iterator iterador = clientes.iterator();
+        System.out.println("Copiando...");
+        System.out.println();
+        while (iterador.hasNext()) {
+            Cliente cliente = (Cliente) iterador.next();
+            serializa.escribirCliente(cliente);
+        }
+        serializa.cerrar();
+    }
+
+    /*Nombre método: restaurarCopiaSeguridadClientes
+      Entradas: String path del fichero, objeto de tipo Input
+      Salidas: nada
+      Excepciones: IOException y ClassNotFoundException
+      Descripción: Deserializa la información de las empresas presentes en la bolsa y las uarda en disco
+      */
+    public void restaurarCopiaSeguridadClientes(String path, Input deserializa)throws IOException, ClassNotFoundException {
+        Cliente cliente;
+        deserializa.abrir(path);
+        System.out.println("Restaurando...");
+        System.out.println();
+        clientes.clear();//borramos toda la lista antes de cargar desde disco la nueva lista de la que dispondremos
+        do {
+
+            cliente = deserializa.leerCliente();
+            clientes.add(cliente);
+        } while (cliente != null);
+        deserializa.cerrar();
+        clientes.remove(null);
+    }
 
     /*Nombre método: promocionAClientePremium
       Entradas: dni cliente
@@ -143,6 +174,7 @@ public class Banco {
       */
     public void promocionAClientePremium(String dniCliente) throws BancoNoTieneGestor {
         boolean encontrado;
+        boolean noExiste;
         try {
             Cliente cliente = new Cliente("sdsd", dniCliente, 32); //creamos este objeto auxiliar para comparar con los elemntos de la lista de clientes
 
@@ -150,16 +182,16 @@ public class Banco {
                 System.out.println("El bancco no tiene asignado ningún gestor");
             } else {
                 encontrado = false;
+                noExiste = true;
                 Iterator iterador = clientes.iterator(); // creo un objeto Iterator para recorrer la coleccion
                 while (iterador.hasNext() && !encontrado) {
                     Cliente cliente1 = (Cliente) iterador.next();
                     if (cliente1.isEsPremium()) {
                         System.out.println("El cliente con dni: " + dniCliente + " ya tiene categoria Premium y su gestor es: " + ((ClientePremium) cliente1).getNombreGestorDeInversiones());
+                        noExiste = false;
                     } else if (cliente.equals(cliente1)) {
                         encontrado = true;
                         cliente = cliente1;//meto en la varible cliente al objeto de la colleccion cliente1 que coincide con el en el dni
-                    } else {
-                        System.out.println("El cliente con dni: " + dniCliente + " no existe");
                     }
                 }
                 if (encontrado) {
@@ -167,8 +199,10 @@ public class Banco {
                     clientes.remove(cliente); // borro de la coleccion al cliente antiguo, es decir el que no era premium
                     clientes.add(clientePremium); // añado a la coleccion al cliente ya promocionado a premium
                     System.out.println("El cliente con dni: " + dniCliente + " se le ha otorgado la categoria Premium y su gestor asignado es: " + this.broker.getNombre());
-
+                } else if (noExiste) {
+                    System.out.println("El cliente con dni: " + dniCliente + " no existe");
                 }
+
             }
         } catch (NullPointerException bancoNotieneGestor) {
             throw new BancoNoTieneGestor("Se ha intentado promocionar a un cliente a premium sin que el banco tenga un gestor de inversiones");
@@ -176,6 +210,9 @@ public class Banco {
 
 
     }
+
+
+
+
+
 }
-
-

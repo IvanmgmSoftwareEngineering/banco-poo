@@ -5,11 +5,13 @@ import General.*;
 import Bolsa.*;
 import Banco.*;
 
+import java.io.IOException;
+
 
 public class Main {
 
     public static void main(String[] args) {
-        String respuesta;
+        String respuesta = "";
 
         try {
             Escaner escanner = new Escaner();//Creamo un objeto de tipo Escaner
@@ -45,6 +47,11 @@ public class Main {
         } catch (BancoNoTieneGestor e4) {
             e4.printStackTrace();
             respuesta=e4.getMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e5) {
+            e5.printStackTrace();
+            respuesta=e5.getMessage();
         }
 
 
