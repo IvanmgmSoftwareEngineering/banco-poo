@@ -1,7 +1,9 @@
 package Bolsa;
 
+import java.io.*;
 import java.util.HashSet;
 import java.util.Iterator;
+import Utilidades.*;
 
 public class BolsaDeValores {
 
@@ -96,7 +98,28 @@ public class BolsaDeValores {
 
     }
 
+    /*Nombre método: copiaSeguridadEmpresas
+      Entradas: String path del fichero
+      Salidas: nada
+      Excepciones: IOException
+      Descripción: Serializa la información de las empresas presentes en la bolsa y las uarda en disco
+      */
+    public void copiaSeguridadEmpresas(String path, Output serializa)throws IOException {
 
-
-
+        serializa.abrir(path);
+        Iterator iterador = empresas.iterator();
+        while (iterador.hasNext()) {
+            Empresa empresa = (Empresa) iterador.next();
+            serializa.escribirEmpresa(empresa);
+        }
+        serializa.cerrar();
+    }
 }
+
+
+
+
+
+
+
+

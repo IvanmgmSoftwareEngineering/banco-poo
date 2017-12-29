@@ -16,6 +16,7 @@ public class InterfazDeUsuario {
     private String dni;
     private float saldo;
     private float valorActualEmpresa;
+    private String path;
     // -FIN VARIABLES
 
     //ESPACIO RESERVADO PARA CONSTRUCTORES
@@ -54,6 +55,11 @@ public class InterfazDeUsuario {
     public float getSaldo() {
         return saldo;
     }
+
+    public String getPath() {
+        return path;
+    }
+
     // -FIN GETTERS
 
     //ESPACIO RESERVADO PARA METODOS PRIVADOS DE LA CLASE
@@ -206,6 +212,29 @@ public class InterfazDeUsuario {
         }
     }
 
+    /*Nombre método: muestraClientesBanco (OPCION 1)
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: ninguna
+      Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
+      */
+    public void muestraClientesBanco() {
+        System.out.println("------OPCIÓN 1 SELECCIONADA: MUESTRA CLIENTES BANCO-----");
+        System.out.println("A continuación le mostramos una lista con los clientes del banco: ");
+        System.out.println();
+    }
+
+    /*Nombre método: muestraEmpresasBanco (OPCION 2)
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: nada
+      Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
+      */
+    public void muestraEmpresasBanco()  {
+        System.out.println("------OPCIÓN 2 SELECCIONADA: MUESTRA EMPRESAS BOLSA-----");
+        System.out.println("A continuación le mostramos una lista con las empresas de bolsa: ");
+        System.out.println();
+    }
 
     /*Nombre método: AltaClienteBanco (OPCION 3)
       Entradas: ninguna
@@ -215,6 +244,7 @@ public class InterfazDeUsuario {
       */
     public void altaClienteBanco() throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 3 SELECCIONADA: AÑADIR CLIENTE A BANCO------");
+        System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
         System.out.println();
         System.out.print("      Nombre cliente: ");//6 espacios
@@ -234,10 +264,31 @@ public class InterfazDeUsuario {
       */
     public void bajaClienteBanco() throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 4 SELECCIONADA: ELIMINAR CLIENTE BANCO------");
+        System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
         System.out.print("Dni cliente: ");
         dni = this.leeCadenaTextoTeclado("opcionDNI");
 
+    }
+
+    /*Nombre método: hazCopiaSeguridadBanco(OPCION 5)
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: ninguna
+      Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
+      */
+    public void hazCopiaSeguridadBanco() {
+        System.out.println("------OPCIÓN 5 SELECCIONADA: COPIA SEGURIDAD BANCO-----");
+    }
+
+    /*Nombre método: restauraCopiaSeguridadBanco(OPCION 6)
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: ninguna
+      Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
+      */
+    public void restauraCopiaSeguridadBanco() {
+        System.out.println("------OPCIÓN 6 SELECCIONADA: RESTAURA COPIA SEGURIDAD BANCO-----");
     }
 
     /*Nombre método: promocionaPremium (OPCION 7)
@@ -248,7 +299,9 @@ public class InterfazDeUsuario {
       */
     public void promocionaPremium()throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 7 SELECCIONADA: MEJORAR CLIENTE A PREMIUM------");
+        System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
         System.out.print("Dni cliente: ");
         dni = this.leeCadenaTextoTeclado("opcionDNI");
     }
@@ -261,6 +314,7 @@ public class InterfazDeUsuario {
       */
     public void altaEmpresaBolsa() throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 9 SELECCIONADA: AÑADIR EMPRESA A BOLSA------");
+        System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
         System.out.println();
         System.out.print("      Nombre empresa: ");//6 espacios
@@ -277,12 +331,38 @@ public class InterfazDeUsuario {
       */
     public void bajaEmpresaBolsa() throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 10 SELECCIONADA: ELIMINAR EMPRESA BOLSA------");
+        System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
         System.out.print("Nombre empresa: ");
         nombreEmpresa = this.leeCadenaTextoTeclado("opcionNombre");
 
     }
 
+    /*Nombre método: hazCopiaSeguridadBolsa(OPCION 12)
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: ninguna
+      Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
+      */
+    public void hazCopiaSeguridadBolsa() throws IntentsLimitAchieveException{
+        System.out.println("------OPCIÓN 12 SELECCIONADA: COPIA SEGURIDAD BOLSA-----");
+        System.out.println();
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
+        System.out.print("      Path fichero: ");//6 espacios
+        this.path = this.leeCadenaTextoTeclado("opcionNombre");
+    }
+
+    /*Nombre método: restauraCopiaSeguridadBolsa(OPCION 13)
+      Entradas: ninguna
+      Salidas: ninguna
+      Excepciones: ninguna
+      Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
+      */
+    public void restauraCopiaSeguridadBolsa() {
+        System.out.println("------OPCIÓN 13 SELECCIONADA: RESTAURA COPIA SEGURIDAD BOLSA-----");
+    }
 
 
 
