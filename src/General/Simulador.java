@@ -6,6 +6,7 @@ import Bolsa.Empresa;
 import ExcepcionesPropias.*;
 import Utilidades.*;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -69,86 +70,118 @@ public class Simulador {
             interfaz.muestraMenu();
             eleccion = Integer.parseInt(interfaz.getEleccion());
             while (eleccion !=0) {
+                switch (eleccion) {
+                    case 1:     // IMPRIMIR ESTADO DE LOS CLIENTES
+                        interfaz.muestraClientesBanco();
+                        banco.showClientes();
+                        break;
 
-                if (eleccion == 1) {// IMPRIMIR ESTADO DE LOS CLIENTES
-                    interfaz.muestraClientesBanco();
-                    banco.showClientes();
+                    case 2:     //IMPRIMIR ESTADO DE LAS EMPRESAS DE LA BOLSA
+                        interfaz.muestraEmpresasBanco();
+                        bolsa.showEmpresas();
+                        break;
 
-                } else if (eleccion == 2) {//IMPRIMIR ESTADO DE LAS EMPRESAS DE LA BOLSA
-                    interfaz.muestraEmpresasBanco();
-                    bolsa.showEmpresas();
+                    case 3:     //AÑADIR UN NUEVO CLIENTE AL BANCO
+                        interfaz.altaClienteBanco();
+                        Cliente cliente1 = interfaz.crearCliente();
+                        banco.addCliente(cliente1);
+                        break;
 
-                } else if (eleccion == 3) {//AÑADIR UN NUEVO CLIENTE AL BANCO
-                    interfaz.altaClienteBanco();
-                    Cliente cliente1 = new Cliente(interfaz.getNombrePersona(), interfaz.getDni(),interfaz.getSaldo());
-                    banco.addCliente(cliente1);
+                    case 4:     //ELIMINAR A UN CLIENTE DEL BANCO
+                        interfaz.bajaClienteBanco();
+                        banco.removeCliente(interfaz.getDni());
+                        break;
 
-                } else if (eleccion == 4) {//ELIMINAR A UN CLIENTE DEL BANCO
-                    interfaz.bajaClienteBanco();
-                    banco.removeCliente(interfaz.getDni());
+                    case 5:     //REALIZAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
+                        if(banco.getClientes().size()==0) System.out.println("El Banco no tiene clientes. No se puede guardar nada.");
+                        else {
+                            Output serializa = new Output();
+                            interfaz.hazCopiaSeguridadBanco();
+                            banco.copiaSeguridadBanco(interfaz.getPath(),serializa);
+                            System.out.println("Copia realizada con exito.");
+                            System.out.println();
+                        }
+                        break;
 
-                } else if (eleccion == 5) {//REALIZAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
-                    if(banco.getClientes().size()==0) System.out.println("El Banco no tiene clientes. No se puede guardar nada.");
-                    else {
-                        Output serializa = new Output();
-                        interfaz.hazCopiaSeguridadBanco();
-                        banco.copiaSeguridadBanco(interfaz.getPath(),serializa);
-                        System.out.println("Copia realizada con exito.");
+                    case 6:     //RESTAURAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
+                        Input deserializa = new Input();
+                        try {
+                            interfaz.restauraCopiaSeguridadBanco();
+                            banco.restaurarCopiaSeguridadClientes(interfaz.getPath(), deserializa);
+                            System.out.println("Restauración realizada con exito.");
+                        }
+                        catch (FileNotFoundException fnfe) {
+                            System.out.println("La ruta indicada no existe.");
+                        }
+                        catch (IOException ioe) {
+                            throw new IOException("Ruta correcta pero otro error de E/S");
+                        }
                         System.out.println();
-                    }
+                        break;
 
-                } else if (eleccion == 6) {//RESTAURAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
-                    Input deserializa = new Input();
-                    interfaz.restauraCopiaSeguridadBanco();
-                    banco.restaurarCopiaSeguridadClientes(interfaz.getPath(),deserializa);
-                    System.out.println("Restauración realizada con exito.");
-                    System.out.println();
+                    case 7:     //MEJORAR A CLIENTE PREMIUM
+                        interfaz.promocionaPremium();
+                        banco.promocionAClientePremium(interfaz.getDni());
+                        break;
 
-                } else if (eleccion == 7) { //MEJORAR A CLIENTE PREMIUM
-                    interfaz.promocionaPremium();
-                    banco.promocionAClientePremium(interfaz.getDni());
+                    case 8:     //SOLICITA RECOMENDACION DE INVERSION AL GESTOR
+                        break;
 
-                } else if (eleccion == 8) {//SOLICITA RECOMENDACION DE INVERSION AL GESTOR
+                    case 9:     //AÑADIR EMPRESA A LA BOLSA
+                        interfaz.altaEmpresaBolsa();
+                        Empresa empresa1 = interfaz.crearEmpresa();
+                        bolsa.addEmpresa(empresa1);
+                        break;
 
-                } else if (eleccion == 9) {//AÑADIR EMPRESA A LA BOLSA
-                    interfaz.altaEmpresaBolsa();
-                    Empresa empresa1 = new Empresa(interfaz.getNombreEmpresa(), interfaz.getValorActualEmpresa());
-                    bolsa.addEmpresa(empresa1);
+                    case 10:    //ELIMINAR EMPRESA DE LA BOLSA
+                        interfaz.bajaEmpresaBolsa();
+                        bolsa.removeEmpresa(interfaz.getNombreEmpresa());
+                        break;
 
-                } else if (eleccion == 10) { //ELIMINAR EMPRESA DE LA BOLSA
-                    interfaz.bajaEmpresaBolsa();
-                    bolsa.removeEmpresa(interfaz.getNombreEmpresa());
+                    case 11:    //ACTUALIZAR VALORES
+                        break;
 
-                } else if (eleccion == 11) {//ACTUALIZAR VALORES
+                    case 12:    //REALIZAR COPIA DE SEGURIDAD BOLSA (EMPRESAS)
+                        if(bolsa.getEmpresas().size()==0) System.out.println("la Bolsa no tiene empresas. No se puede guardar nada disco.");
+                        else {
+                            Output serializa = new Output();
+                            interfaz.hazCopiaSeguridadBolsa();
+                            bolsa.copiaSeguridadEmpresas(interfaz.getPath(), serializa);
+                            System.out.println("Copia realizada con exito.");
+                            System.out.println();
+                        }
+                        break;
 
-                } else if (eleccion == 12) {//REALIZAR COPIA DE SEGURIDAD BOLSA (EMPRESAS)
-                    if(bolsa.getEmpresas().size()==0) System.out.println("la Bolsa no tiene empresas. No se puede guardar nada disco.");
-                    else {
-                        Output serializa = new Output();
-                        interfaz.hazCopiaSeguridadBolsa();
-                        bolsa.copiaSeguridadEmpresas(interfaz.getPath(), serializa);
-                        System.out.println("Copia realizada con exito.");
+                    case 13:    //RESTAURAR COPIA DE SEGURIDAD DE LA BOLSA (EMPRESAS)
+                        Input deserializa2 = new Input();
+                        try {
+                            interfaz.restauraCopiaSeguridadBolsa();
+                            bolsa.restaurarCopiaSeguridadEmpresas(interfaz.getPath(), deserializa2);
+                            System.out.println("Restauración realizada con exito.");
+                        }
+                        catch (FileNotFoundException fnfe) {
+                            System.out.println("La ruta indicada no existe.");
+                        }
+                        catch (IOException ioe) {
+                            throw new IOException("Ruta correcta pero otro error de E/S");
+                        }
                         System.out.println();
-                    }
+                        break;
 
-                } else if (eleccion == 13) {//RESTAURAR COPIA DE SEGURIDAD DE LA BOLSA (EMPRESAS)
-                    Input deserializa = new Input();
-                    interfaz.restauraCopiaSeguridadBolsa();
-                    bolsa.restaurarCopiaSeguridadEmpresas(interfaz.getPath(),deserializa);
-                    System.out.println("Restauración realizada con exito.");
-                    System.out.println();
+                    case 14:    //SOLICITAR COMPRA DE ACCIONES
+                        break;
 
+                    case 15:    //SOLICITAR VENTA DE ACCIONES
+                        break;
 
-                } else if (eleccion == 14) {//SOLICITAR COMPRA DE ACCIONES
+                    case 16:    //SOLICITAR ACTUALIZACION DE VALORES DE LAS CARTERAS DE UN CLIENTE
+                        break;
 
-                } else if (eleccion == 15) {//SOLICITAR VENTA DE ACCIONES
+                    case 17:    //IMPRIMIR OPERACIONES PENDIENTES
+                        break;
 
-                } else if (eleccion == 16) {//SOLICITAR ACTUALIZACION DE VALORES DE LAS CARTERAS DE UN CLIENTE
-
-                } else if (eleccion == 17) {//IMPRIMIR OPERACIONES PENDIENTES
-
-                } else if (eleccion == 18) {//EJECUTAR OPERACIONES PENDIENTES
-
+                    case 18:    //EJECUTAR OPERACIONES PENDIENTES
+                        break;
                 }
                 System.out.println();
                 System.out.print("Pulse la tecla ENTER para volver al MENU");

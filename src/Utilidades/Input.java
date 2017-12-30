@@ -10,7 +10,7 @@ public class Input { //DESSERIALIZA
     private ObjectInputStream input;
 
     //Abrimos el fichero
-    public void abrir(String path) throws IOException{
+    public void abrir(String path) throws IOException {
 
         file = new FileInputStream(path);
         input = new ObjectInputStream(file);

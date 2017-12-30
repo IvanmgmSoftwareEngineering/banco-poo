@@ -1,5 +1,7 @@
 package General;
 
+import Banco.Cliente;
+import Bolsa.Empresa;
 import ExcepcionesPropias.*;
 
 import java.util.InputMismatchException;
@@ -64,6 +66,19 @@ public class InterfazDeUsuario {
 
     // -FIN GETTERS
 
+    // ESPACIO RESERVADO PARA GETTERS DERIVADOS O "CREADORES"
+    public Cliente crearCliente() {
+        Cliente c1 = new Cliente(this.getNombrePersona(),this.getDni(),this.getSaldo());
+        return c1;
+    }
+
+    public Empresa crearEmpresa() {
+        Empresa e1 = new Empresa(this.getNombreEmpresa(),this.getValorActualEmpresa());
+        return e1;
+    }
+
+    //-FIN CREADORES
+
     //ESPACIO RESERVADO PARA METODOS PRIVADOS DE LA CLASE
 
     /*Nombre método: leeCadenaTextoTeclado
@@ -82,7 +97,7 @@ public class InterfazDeUsuario {
         char letraMenu1;
         intentos = INTENTOS;
         datos = leeTeclado.leeDatos();
-        if (opcion == "opcionNombre") {
+        if (opcion.equals("opcionNombre")) {
             while (intentos > 0) {
                 encontrado = false;
                 i = 0;
@@ -104,7 +119,7 @@ public class InterfazDeUsuario {
                     return datos;
                 }
             }
-        }else if (opcion == "opcionMenu") {
+        }else if (opcion.equals("opcionMenu")) {
             while (intentos > 0) {
                 if (datos.length() >2 ){//el numero e caracteres es distinto de 1 y 2
                     intentos = intentos - 1;
@@ -158,7 +173,7 @@ public class InterfazDeUsuario {
             }
         }
 
-        else if (opcion == "opcionDNI") {
+        else if (opcion.equals("opcionDNI")) {
             while (intentos > 0) {
                 if (datos.length() != 9) {//el numero e caracteres es distinto de 9
                     intentos = intentos - 1;
@@ -171,7 +186,7 @@ public class InterfazDeUsuario {
                 return datos;
             }
 
-        } else if (opcion == "opcionPath") {
+        } else if (opcion.equals("opcionPath")) {
         while (intentos > 0) {
             encontrado = false;
             i = 0;
@@ -387,7 +402,7 @@ public class InterfazDeUsuario {
         dni = this.leeCadenaTextoTeclado("opcionDNI");
     }
 
-    /*Nombre método: AltaEmpresaBolsa (OPCION 10)
+    /*Nombre método: AltaEmpresaBolsa (OPCION 9)
       Entradas: ninguna
       Salidas: ninguna
       Excepciones: IntentsLimitAchieveException
@@ -404,7 +419,7 @@ public class InterfazDeUsuario {
         this.valorActualEmpresa = this.leeNumeroDecimalTeclado();
     }
 
-    /*Nombre método: BajaEmpresaBolsa (OPCION 11)
+    /*Nombre método: BajaEmpresaBolsa (OPCION 10)
       Entradas: ninguna
       Salidas: ninguna
       Excepciones: IntentsLimitAchieveException
@@ -416,8 +431,7 @@ public class InterfazDeUsuario {
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
         System.out.println();
         System.out.print("Nombre empresa: ");
-        nombreEmpresa = this.leeCadenaTextoTeclado("opcionNombre");
-
+        this.nombreEmpresa = this.leeCadenaTextoTeclado("opcionNombre");
     }
 
     /*Nombre método: hazCopiaSeguridadBolsa(OPCION 12)
