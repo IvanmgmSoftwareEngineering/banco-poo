@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 public class InterfazDeUsuario {
 
     //ESPACIO PARA CONSTANTES
-    private final int INTENTOS = 5;
+    private final int INTENTOS = 5; // Contante que nos limita el número de intentos que un ususario puede introducir por teclado un valor no válido
     // FIN CONSTANTES------------
 
     //ESPACIO RESERVADO PARA VARIABLES
@@ -98,7 +98,7 @@ public class InterfazDeUsuario {
         intentos = INTENTOS;
         datos = leeTeclado.leeDatos();
         if (opcion.equals("opcionNombre")) {
-            while (intentos > 0) {
+            while (intentos > 1) {
                 encontrado = false;
                 i = 0;
                 while (!encontrado && i < datos.length()) {
@@ -120,7 +120,7 @@ public class InterfazDeUsuario {
                 }
             }
         }else if (opcion.equals("opcionMenu")) {
-            while (intentos > 0) {
+            while (intentos > 1) {
                 if (datos.length() >2 ){//el numero e caracteres es distinto de 1 y 2
                     intentos = intentos - 1;
                     System.out.println();
@@ -174,7 +174,7 @@ public class InterfazDeUsuario {
         }
 
         else if (opcion.equals("opcionDNI")) {
-            while (intentos > 0) {
+            while (intentos > 1) {
                 if (datos.length() != 9) {//el numero e caracteres es distinto de 9
                     intentos = intentos - 1;
                     System.out.println();
@@ -187,7 +187,7 @@ public class InterfazDeUsuario {
             }
 
         } else if (opcion.equals("opcionPath")) {
-        while (intentos > 0) {
+        while (intentos > 1) {
             encontrado = false;
             i = 0;
             while (!encontrado && i < datos.length()) {
@@ -223,7 +223,7 @@ public class InterfazDeUsuario {
         float numero;
         int intentos;
         intentos = INTENTOS;
-        while (intentos > 0) {
+        while (intentos > 1) {
             numero = Float.valueOf(leeTeclado.leeDatos()).floatValue();
             if (numero < 0) {
                 intentos = intentos - 1;
