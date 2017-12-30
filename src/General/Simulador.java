@@ -171,6 +171,15 @@ public class Simulador {
                         break;
 
                     case 11:    //ACTUALIZAR VALORES
+                        interfaz.actualizaValores();
+                        if(bolsa.getEmpresas().size()==0){
+                            System.out.println("NO hay empresas en la bolsa");
+                        }
+                        else{
+                            System.out.println("Actualizando...");
+                            bolsa.actualizarValoresEmpresas();
+                        }
+
                         break;
 
                     case 12:    //REALIZAR COPIA DE SEGURIDAD BOLSA (EMPRESAS)

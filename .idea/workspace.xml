@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba885ecd-d8ef-45dd-80f5-a05b96a251bf" name="Default" comment="" />
+    <list default="true" id="ba885ecd-d8ef-45dd-80f5-a05b96a251bf" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/General/Utilidades.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/out/production/banco-poo/Bolsa/BolsaDeValores.class" afterPath="$PROJECT_DIR$/out/production/banco-poo/Bolsa/BolsaDeValores.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/banco-poo/Bolsa/Empresa.class" afterPath="$PROJECT_DIR$/out/production/banco-poo/Bolsa/Empresa.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/banco-poo/General/InterfazDeUsuario.class" afterPath="$PROJECT_DIR$/out/production/banco-poo/General/InterfazDeUsuario.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/banco-poo/General/Simulador.class" afterPath="$PROJECT_DIR$/out/production/banco-poo/General/Simulador.class" />
+      <change beforePath="$PROJECT_DIR$/out/production/banco-poo/Utilidades/Utilidades.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/Bolsa/BolsaDeValores.java" afterPath="$PROJECT_DIR$/src/Bolsa/BolsaDeValores.java" />
+      <change beforePath="$PROJECT_DIR$/src/Bolsa/Empresa.java" afterPath="$PROJECT_DIR$/src/Bolsa/Empresa.java" />
+      <change beforePath="$PROJECT_DIR$/src/General/InterfazDeUsuario.java" afterPath="$PROJECT_DIR$/src/General/InterfazDeUsuario.java" />
+      <change beforePath="$PROJECT_DIR$/src/General/Simulador.java" afterPath="$PROJECT_DIR$/src/General/Simulador.java" />
+      <change beforePath="$PROJECT_DIR$/src/Utilidades/Utilidades.java" afterPath="" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Simulador.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Simulador.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/General/Simulador.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-371">
-              <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+            <state relative-caret-position="586">
+              <caret line="182" column="30" lean-forward="false" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -25,14 +39,27 @@
       <file leaf-file-name="InterfazDeUsuario.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/General/InterfazDeUsuario.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="11" column="148" lean-forward="false" selection-start-line="11" selection-start-column="148" selection-end-line="11" selection-end-column="148" />
+            <state relative-caret-position="3112">
+              <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
+              <folding>
+                <element signature="method#leeCadenaTextoTeclado#0;class#InterfazDeUsuario#0" expanded="false" />
+                <marker date="1514655641465" expanded="true" signature="21828:21834" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BolsaDeValores.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bolsa/BolsaDeValores.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="118" column="35" lean-forward="false" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/company/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
@@ -42,11 +69,25 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Empresa.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Bolsa/Empresa.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="51" column="163" lean-forward="false" selection-start-line="51" selection-start-column="163" selection-end-line="51" selection-end-column="163" />
+              <folding>
+                <element signature="e#1623#1624#0" expanded="true" />
+                <element signature="e#1666#1667#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="IVAN Y MARKOS" />
         <option value="ivan" />
       </list>
     </option>
@@ -65,13 +106,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/General/Simulador.java" />
         <option value="$PROJECT_DIR$/src/General/InterfazDeUsuario.java" />
+        <option value="$PROJECT_DIR$/src/General/Simulador.java" />
+        <option value="$PROJECT_DIR$/src/Bolsa/BolsaDeValores.java" />
+        <option value="$PROJECT_DIR$/src/Bolsa/Empresa.java" />
+        <option value="$PROJECT_DIR$/src/General/Utilidades.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="22" />
+    <option name="x" value="32" />
     <option name="y" value="62" />
     <option name="width" value="1647" />
     <option name="height" value="1309" />
@@ -111,6 +155,12 @@
               <item name="banco-poo" type="b2602c69:ProjectViewProjectNode" />
               <item name="banco-poo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Bolsa" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="banco-poo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="banco-poo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="company" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -118,6 +168,12 @@
               <item name="banco-poo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="General" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="banco-poo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="banco-poo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Utilidades" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -272,7 +328,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="22" y="62" width="1647" height="1309" extended-state="0" />
+    <frame x="32" y="62" width="1647" height="1309" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -308,26 +364,45 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="pequeños retoques" />
-    <option name="LAST_COMMIT_MESSAGE" value="pequeños retoques" />
+    <MESSAGE value="FUNCIONALIDAD 11 HECHA" />
+    <option name="LAST_COMMIT_MESSAGE" value="FUNCIONALIDAD 11 HECHA" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/General/InterfazDeUsuario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="148" lean-forward="false" selection-start-line="11" selection-start-column="148" selection-end-line="11" selection-end-column="148" />
-          <folding />
+        <state relative-caret-position="3112">
+          <caret line="466" column="0" lean-forward="false" selection-start-line="466" selection-start-column="0" selection-end-line="466" selection-end-column="0" />
+          <folding>
+            <element signature="method#leeCadenaTextoTeclado#0;class#InterfazDeUsuario#0" expanded="false" />
+            <marker date="1514655641465" expanded="true" signature="21828:21834" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/General/Simulador.java">
+    <entry file="file://$PROJECT_DIR$/src/Bolsa/Empresa.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-371">
-          <caret line="92" column="0" lean-forward="false" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="407">
+          <caret line="51" column="163" lean-forward="false" selection-start-line="51" selection-start-column="163" selection-end-line="51" selection-end-column="163" />
+          <folding>
+            <element signature="e#1623#1624#0" expanded="true" />
+            <element signature="e#1666#1667#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/General/Utilidades.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -335,6 +410,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Bolsa/BolsaDeValores.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="118" column="35" lean-forward="false" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/General/Simulador.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="182" column="30" lean-forward="false" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
           <folding />
         </state>
       </provider>
