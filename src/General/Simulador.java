@@ -76,20 +76,34 @@ public class Simulador {
                         banco.showClientes();
                         break;
 
+
                     case 2:     //IMPRIMIR ESTADO DE LAS EMPRESAS DE LA BOLSA
                         interfaz.muestraEmpresasBanco();
                         bolsa.showEmpresas();
                         break;
 
                     case 3:     //AÑADIR UN NUEVO CLIENTE AL BANCO
-                        interfaz.altaClienteBanco();
-                        Cliente cliente1 = interfaz.crearCliente();
-                        banco.addCliente(cliente1);
+                        try {
+                            interfaz.altaClienteBanco();
+                            Cliente cliente1 = interfaz.crearCliente();
+                            banco.addCliente(cliente1);
+                        }
+                        catch (IntentsLimitAchieveException ilae){
+                            System.out.println("Ha alcanzado al límite de intentos permitidos");
+                        }
+
                         break;
 
                     case 4:     //ELIMINAR A UN CLIENTE DEL BANCO
-                        interfaz.bajaClienteBanco();
-                        banco.removeCliente(interfaz.getDni());
+
+                        try {
+                            interfaz.bajaClienteBanco();
+                            banco.removeCliente(interfaz.getDni());
+                        }
+                        catch (IntentsLimitAchieveException ilae){
+                            System.out.println("Ha alcanzado al límite de intentos permitidos");
+                        }
+
                         break;
 
                     case 5:     //REALIZAR COPIA DE SEGURIDAD DEL BANCO (CLIENTES)
@@ -120,22 +134,40 @@ public class Simulador {
                         break;
 
                     case 7:     //MEJORAR A CLIENTE PREMIUM
-                        interfaz.promocionaPremium();
-                        banco.promocionAClientePremium(interfaz.getDni());
+                        try {
+                            interfaz.promocionaPremium();
+                            banco.promocionAClientePremium(interfaz.getDni());
+                        }
+                        catch (IntentsLimitAchieveException ilae){
+                            System.out.println("Ha alcanzado al límite de intentos permitidos");
+                        }
+
                         break;
 
                     case 8:     //SOLICITA RECOMENDACION DE INVERSION AL GESTOR
                         break;
 
                     case 9:     //AÑADIR EMPRESA A LA BOLSA
-                        interfaz.altaEmpresaBolsa();
-                        Empresa empresa1 = interfaz.crearEmpresa();
-                        bolsa.addEmpresa(empresa1);
+                        try {
+                            interfaz.altaEmpresaBolsa();
+                            Empresa empresa1 = interfaz.crearEmpresa();
+                            bolsa.addEmpresa(empresa1);
+                        }
+                        catch (IntentsLimitAchieveException ilae){
+                            System.out.println("Ha alcanzado al límite de intentos permitidos");
+                        }
+
                         break;
 
                     case 10:    //ELIMINAR EMPRESA DE LA BOLSA
-                        interfaz.bajaEmpresaBolsa();
-                        bolsa.removeEmpresa(interfaz.getNombreEmpresa());
+                        try {
+                            interfaz.bajaEmpresaBolsa();
+                            bolsa.removeEmpresa(interfaz.getNombreEmpresa());
+                        }
+                        catch (IntentsLimitAchieveException ilae){
+                            System.out.println("Ha alcanzado al límite de intentos permitidos");
+                        }
+
                         break;
 
                     case 11:    //ACTUALIZAR VALORES
