@@ -23,6 +23,7 @@ public class Input { //DESSERIALIZA
         if (input!=null) {
             try{
                 cliente = (Cliente) input.readObject();
+
             }
 
             catch ( EOFException eof){

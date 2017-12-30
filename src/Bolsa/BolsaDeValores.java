@@ -89,17 +89,14 @@ public class BolsaDeValores {
     public void showEmpresas(){
         if(empresas.size()==0) System.out.println("No hay empresas en la bolsa!");
         else {
-            Iterator iterador = empresas.iterator();
-            while (iterador.hasNext()) {
-                Empresa empresa = (Empresa) iterador.next();
-                System.out.println(empresa.toString());
+                System.out.println(empresas.toString());
             }
-        }
-
     }
 
+
+
     /*Nombre método: copiaSeguridadEmpresas
-      Entradas: String path del fichero
+      Entradas: String path del fichero, objeto de tipo Output
       Salidas: nada
       Excepciones: IOException
       Descripción: Serializa la información de las empresas presentes en la bolsa y las uarda en disco
@@ -108,11 +105,34 @@ public class BolsaDeValores {
 
         serializa.abrir(path);
         Iterator iterador = empresas.iterator();
+        System.out.println("Copiando...");
+        System.out.println();
         while (iterador.hasNext()) {
             Empresa empresa = (Empresa) iterador.next();
             serializa.escribirEmpresa(empresa);
         }
         serializa.cerrar();
+    }
+
+    /*Nombre método: restaurarCopiaSeguridadEmpresas
+      Entradas: String path del fichero
+      Salidas: nada
+      Excepciones: IOException, ClassNotFoundException
+      Descripción: Deserializa la información de las empresas presentes en la bolsa y las guarda en disco
+      */
+    public void restaurarCopiaSeguridadEmpresas(String path, Input deserializa)throws IOException, ClassNotFoundException {
+
+        Empresa empresa;
+        deserializa.abrir(path);
+        System.out.println("Restaurando...");
+        System.out.println();
+        empresas.clear();//borramos toda la lista antes de cargar desde disco la nueva lista de la que dispondremos
+        do{
+            empresa = deserializa.leerEmpresa();
+            empresas.add(empresa);
+        } while (empresa !=null) ;
+        deserializa.cerrar();
+        empresas.remove(null);
     }
 }
 

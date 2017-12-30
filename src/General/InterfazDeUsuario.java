@@ -2,6 +2,8 @@ package General;
 
 import ExcepcionesPropias.*;
 
+import java.util.InputMismatchException;
+
 public class InterfazDeUsuario {
 
     //ESPACIO PARA CONSTANTES
@@ -10,7 +12,7 @@ public class InterfazDeUsuario {
 
     //ESPACIO RESERVADO PARA VARIABLES
     Escaner leeTeclado;
-    private int eleccion;
+    private String eleccion;
     private String nombreEmpresa;
     private String nombrePersona;
     private String dni;
@@ -32,7 +34,7 @@ public class InterfazDeUsuario {
     // -FIN CONSTRUCTORES
 
     //ESPACIO RESERVADO PARA GETTERS
-    public int getEleccion() {
+    public String getEleccion() {
         return eleccion;
     }
 
@@ -75,10 +77,12 @@ public class InterfazDeUsuario {
         boolean encontrado;
         int intentos;
         int i;
+        char letraNombre;
+        char letraMenu;
+        char letraMenu1;
         intentos = INTENTOS;
         datos = leeTeclado.leeDatos();
         if (opcion == "opcionNombre") {
-            char letraNombre;
             while (intentos > 0) {
                 encontrado = false;
                 i = 0;
@@ -100,7 +104,61 @@ public class InterfazDeUsuario {
                     return datos;
                 }
             }
-        } else if (opcion == "opcionDNI") {
+        }else if (opcion == "opcionMenu") {
+            while (intentos > 0) {
+                if (datos.length() >2 ){//el numero e caracteres es distinto de 1 y 2
+                    intentos = intentos - 1;
+                    System.out.println();
+                    System.out.println("ERROR: La opcion debe contener 1 o 2 caracteres numéricos como máximo.");
+                    System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                    System.out.print("Inserte la opción deseada: ");
+                    datos = leeTeclado.leeDatos();
+                } else {
+                    if (datos.length() == 1) {
+                        letraMenu = datos.charAt(0);
+                        if (!(letraMenu >= 48 && letraMenu <= 57)) {
+                            intentos = intentos - 1;
+                            System.out.println();
+                            System.out.println("ERROR: La opcion debe contener solo caracteres numéricos válidos 0-18.");
+                            System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                            System.out.print("Inserte la opción deseada: ");
+                            datos = leeTeclado.leeDatos();
+                        }
+                        else return datos;
+
+                    }
+                    else{//hay dos carateres
+                        letraMenu = datos.charAt(0);
+                        letraMenu1 = datos.charAt(0);
+                        if (!(letraMenu >= 48 && letraMenu <= 57) || !(letraMenu1 >= 48 && letraMenu1 <= 57) ) {
+                            intentos = intentos - 1;
+                            System.out.println();
+                            System.out.println("ERROR: Alguno de los caracteres que ha introducido no es numérico");
+                            System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                            System.out.print("Inserte la opción deseada: ");
+                            datos = leeTeclado.leeDatos();
+                        }
+                        else {
+                            int aux;
+                            aux = Integer.parseInt(datos);
+                            if (aux !=10&&aux !=11&&aux !=12&&aux !=13&&aux !=14&&aux !=15&&aux !=16&&aux !=17&&aux !=18){
+                                intentos = intentos - 1;
+                                System.out.println();
+                                System.out.println("ERROR: El numero introducido debes tesar dentro del rango 0-18");
+                                System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                                System.out.print("Inserte la opción deseada: ");
+                                datos = leeTeclado.leeDatos();
+                            }
+                            else return datos;
+
+                        }
+                    }
+
+                }
+            }
+        }
+
+        else if (opcion == "opcionDNI") {
             while (intentos > 0) {
                 if (datos.length() != 9) {//el numero e caracteres es distinto de 9
                     intentos = intentos - 1;
@@ -113,6 +171,29 @@ public class InterfazDeUsuario {
                 return datos;
             }
 
+        } else if (opcion == "opcionPath") {
+        while (intentos > 0) {
+            encontrado = false;
+            i = 0;
+            while (!encontrado && i < datos.length()) {
+                letraNombre = datos.charAt(i);
+                if (!((letraNombre==46)||((letraNombre >= 65) && (letraNombre <= 90)) || ((letraNombre >= 97) && (letraNombre <= 122)))) {
+                    encontrado = true;
+                }
+                i = i + 1;
+            }
+            if (encontrado) {
+                System.out.println("El nombre debe contener caracteres válidos; no números, no acentos, solo letras desde a-z o A-Z y símbolo de puntuación '.'");
+                intentos = intentos - 1;
+                System.out.println("Vuelva a intentarlo. Le quedan " + intentos + " intentos para hacerlo bien.");
+                System.out.print("Nombre empresa: ");
+                datos = leeTeclado.leeDatos();
+
+            } else {
+                return datos;
+            }
+
+        }
         }
         throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
     }
@@ -193,22 +274,12 @@ public class InterfazDeUsuario {
         this.menu();
         System.out.print("Inserte la opción deseada: ");
         try {
-            eleccion = leeTeclado.leeSeleccionMenu();
-            while ((eleccion < 0) || (eleccion > 18)) {
-                if (intentos == 0) {
-                    throw new IntentsLimitAchieveException("Se ha superado el límite de veces que el usuario puede introducir una opción no válida");
-                }
-                this.menu();
-                System.out.println("¡La opción solicitada no existe; escoja una opción entre las mostradas en el menú!");
-                System.out.print("Inserte la opción deseada (le quedan " + intentos + " intentos): ");
-                eleccion = leeTeclado.leeSeleccionMenu();
-                intentos = intentos - 1;
-            }
+            eleccion = this.leeCadenaTextoTeclado("opcionMenu");
 
-        } catch (ClassCastException eleccionNoEsNumeroEntero) {
-            throw eleccionNoEsNumeroEntero;
-        } catch (NullPointerException e) {
+        }catch (NullPointerException e) {
             throw new ObjetoEscannerNoPasadoConstructorInterfazDeUsuario("La clase 'Interfaz Ususario' debe recibir un objeto de tipo 'Escanner' para funcionar correctamente");
+        } catch (InputMismatchException e1){
+
         }
     }
 
@@ -230,7 +301,7 @@ public class InterfazDeUsuario {
       Excepciones: nada
       Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
       */
-    public void muestraEmpresasBanco()  {
+    public void muestraEmpresasBanco() {
         System.out.println("------OPCIÓN 2 SELECCIONADA: MUESTRA EMPRESAS BOLSA-----");
         System.out.println("A continuación le mostramos una lista con las empresas de bolsa: ");
         System.out.println();
@@ -277,8 +348,13 @@ public class InterfazDeUsuario {
       Excepciones: ninguna
       Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
       */
-    public void hazCopiaSeguridadBanco() {
+    public void hazCopiaSeguridadBanco()throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 5 SELECCIONADA: COPIA SEGURIDAD BANCO-----");
+        System.out.println();
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
+        System.out.print("      Path fichero: ");//6 espacios
+        this.path = this.leeCadenaTextoTeclado("opcionPath");
     }
 
     /*Nombre método: restauraCopiaSeguridadBanco(OPCION 6)
@@ -287,8 +363,13 @@ public class InterfazDeUsuario {
       Excepciones: ninguna
       Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
       */
-    public void restauraCopiaSeguridadBanco() {
+    public void restauraCopiaSeguridadBanco()throws IntentsLimitAchieveException  {
         System.out.println("------OPCIÓN 6 SELECCIONADA: RESTAURA COPIA SEGURIDAD BANCO-----");
+        System.out.println();
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
+        System.out.print("      Path fichero: ");//6 espacios
+        this.path = this.leeCadenaTextoTeclado("opcionPath");
     }
 
     /*Nombre método: promocionaPremium (OPCION 7)
@@ -297,7 +378,7 @@ public class InterfazDeUsuario {
       Excepciones:
       Descripción: Promociona a un cleinte ya existente a premium asignandole a un gestor
       */
-    public void promocionaPremium()throws IntentsLimitAchieveException {
+    public void promocionaPremium() throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 7 SELECCIONADA: MEJORAR CLIENTE A PREMIUM------");
         System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
@@ -345,13 +426,13 @@ public class InterfazDeUsuario {
       Excepciones: ninguna
       Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
       */
-    public void hazCopiaSeguridadBolsa() throws IntentsLimitAchieveException{
+    public void hazCopiaSeguridadBolsa() throws IntentsLimitAchieveException {
         System.out.println("------OPCIÓN 12 SELECCIONADA: COPIA SEGURIDAD BOLSA-----");
         System.out.println();
         System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
         System.out.println();
         System.out.print("      Path fichero: ");//6 espacios
-        this.path = this.leeCadenaTextoTeclado("opcionNombre");
+        this.path = this.leeCadenaTextoTeclado("opcionPath");
     }
 
     /*Nombre método: restauraCopiaSeguridadBolsa(OPCION 13)
@@ -360,12 +441,17 @@ public class InterfazDeUsuario {
       Excepciones: ninguna
       Descripción: solo imprime por pantalla un mensaje relacionado con la consulata que se desea realizar
       */
-    public void restauraCopiaSeguridadBolsa() {
+    public void restauraCopiaSeguridadBolsa() throws IntentsLimitAchieveException {
+
         System.out.println("------OPCIÓN 13 SELECCIONADA: RESTAURA COPIA SEGURIDAD BOLSA-----");
+        System.out.println();
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
+        System.out.print("      Path fichero: ");//6 espacios
+        this.path = this.leeCadenaTextoTeclado("opcionPath");
     }
 
 
-
-
-
 }
+
+
