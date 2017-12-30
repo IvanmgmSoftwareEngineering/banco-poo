@@ -98,7 +98,6 @@ public class BolsaDeValores {
             Empresa empresa = (Empresa) iterador.next();
             empresa.setValorTituloPrevio(empresa.getValorTituloActual());
             empresa.setValorTituloActual(empresa.getValorTituloActual()+empresa.getValorTituloActual() * aleatorio.generaAleatorio());
-            System.out.println(aleatorio.generaAleatorio());
             empresas1.add(empresa);
         }
         empresas.clear();

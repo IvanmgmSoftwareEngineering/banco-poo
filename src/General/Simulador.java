@@ -145,6 +145,9 @@ public class Simulador {
                         break;
 
                     case 8:     //SOLICITA RECOMENDACION DE INVERSION AL GESTOR
+                        interfaz.consultaValores();
+                        banco.recomendacionDeInversion(interfaz.getDni());
+
                         break;
 
                     case 9:     //AÑADIR EMPRESA A LA BOLSA
@@ -173,11 +176,12 @@ public class Simulador {
                     case 11:    //ACTUALIZAR VALORES
                         interfaz.actualizaValores();
                         if(bolsa.getEmpresas().size()==0){
-                            System.out.println("NO hay empresas en la bolsa");
+                            System.out.println("No hay empresas en la bolsa");
                         }
                         else{
                             System.out.println("Actualizando...");
                             bolsa.actualizarValoresEmpresas();
+                            System.out.println("La actualización se ha realizaco con exito");
                         }
 
                         break;

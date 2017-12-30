@@ -423,6 +423,21 @@ public class InterfazDeUsuario {
         dni = this.leeCadenaTextoTeclado("opcionDNI");
     }
 
+    /*Nombre método: consultaValores(OPCION 8)
+      Entradas: dni cliente
+      Salidas: nada
+      Excepciones:
+      Descripción: Promociona a un cleinte ya existente a premium asignandole a un gestor
+      */
+    public void consultaValores() throws IntentsLimitAchieveException{
+        System.out.println("------OPCIÓN 8 SELECCIONADA: SOLICITA RECOMEDACIÓN DE INVERSIÓN------");
+        System.out.println();
+        System.out.println("A continuación le solicitaremos los siguientes datos necesarios: ");
+        System.out.println();
+        System.out.print("Dni cliente: ");
+        dni = this.leeCadenaTextoTeclado("opcionDNI");
+    }
+
     /*Nombre método: AltaEmpresaBolsa (OPCION 9)
       Entradas: ninguna
       Salidas: ninguna
