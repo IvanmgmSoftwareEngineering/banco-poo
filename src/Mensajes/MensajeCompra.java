@@ -1,12 +1,14 @@
 package Mensajes;
 
+import Utilidades.Utilidades;
+
 public class MensajeCompra extends Mensaje{
     protected String nombreCliente;
     protected String nombreEmpresa;
     protected double inversionMaxima;
 
     protected String cadenaInversionMaxima() {
-        return Double.toString(inversionMaxima);
+        return Utilidades.formatoDinero(this.inversionMaxima); //Estamos usando un método estático
     }
 
     public String codificar() {
