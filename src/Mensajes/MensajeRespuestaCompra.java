@@ -8,6 +8,18 @@ public class MensajeRespuestaCompra extends MensajeCompra {
     private double precioDeAccion;
     private double dineroSobrante;
 
+    public MensajeRespuestaCompra(int identificador, String nombreCliente, boolean operacionRealizada, int numAccionesCompradas, double precioDeAccion, double dineroSobrante) {
+        super(identificador, nombreCliente);
+        this.operacionRealizada = operacionRealizada;
+        this.numAccionesCompradas = numAccionesCompradas;
+        this.precioDeAccion = precioDeAccion;
+        this.dineroSobrante = dineroSobrante;
+    }
+
+    private String cadenaOperacionRealizada() {
+        return String.valueOf(this.operacionRealizada);
+    }
+
     private String cadenaNumAccionesCompradas() {
         return Utilidades.formatoEntero(this.numAccionesCompradas);
     }
@@ -18,10 +30,6 @@ public class MensajeRespuestaCompra extends MensajeCompra {
 
     private String cadenaDineroSobrante() {
         return Utilidades.formatoDinero(this.dineroSobrante);
-    }
-
-    private String cadenaOperacionRealizada() {
-        return String.valueOf(this.operacionRealizada);
     }
 
     public String codificar() {
