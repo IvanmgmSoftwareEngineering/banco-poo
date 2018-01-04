@@ -3,14 +3,13 @@ package Mensajes;
 import General.Utilidades;
 
 public class MensajeVenta extends Mensaje {
-    protected String nombreEmpresa;
-    protected int numTitulosAVender;
+    protected double numTitulosAVender;
 
 
     public MensajeVenta(int idOperacion, String nombreCliente, String dniCliente, String nombreEmpresa, TipoOperacion tipoOperacion) {//Constructor para ser llamado desde MensajeRespuestaVenta
         super(idOperacion, nombreCliente, dniCliente, nombreEmpresa, tipoOperacion);
     }
-    public MensajeVenta(int identificador, String nombreCliente,String dniCliente, String nombreEmpresa, int numTitulosAVender) {
+    public MensajeVenta(int identificador, String nombreCliente,String dniCliente, String nombreEmpresa, double numTitulosAVender) {
         super(identificador, nombreCliente, dniCliente);
         this.nombreCliente = nombreCliente;
         this.nombreEmpresa = nombreEmpresa;
@@ -21,12 +20,12 @@ public class MensajeVenta extends Mensaje {
         super(idOperacion,nombreCliente,dniCliente);
     }
 
-    public MensajeVenta(int idOperacion, String nombreCliente, String dniCliente, String nombreEmpresa, TipoOperacion tipoOperacion, int numTitulosAVender) {
+    public MensajeVenta(int idOperacion, String nombreCliente, String dniCliente, String nombreEmpresa, TipoOperacion tipoOperacion, double numTitulosAVender) {
         super(idOperacion, nombreCliente, dniCliente, nombreEmpresa, tipoOperacion);
         this.numTitulosAVender = numTitulosAVender;
     }
 
-    public int getNumTitulosAVender() {
+    public double getNumTitulosAVender() {
         return numTitulosAVender;
     }
 
@@ -43,6 +42,7 @@ public class MensajeVenta extends Mensaje {
     public String toString() {
         return "IDoperacion: "+this.idOperacion+ ", Tipo: "+ this.tipoOperacion+", Nombre Cliente: "+ this.nombreCliente + ", Dni Cliente: "+ this.dniCliente + ", Nombre Empresa: "+this.nombreEmpresa + ", Número de acciones a vender: " + this.numTitulosAVender+"\n" ;
     }
+
 }
 
 
