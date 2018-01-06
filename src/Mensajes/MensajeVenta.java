@@ -42,7 +42,6 @@ public class MensajeVenta extends Mensaje {
     public String toString() {
         return "IDoperacion: "+this.idOperacion+ ", Tipo: "+ this.tipoOperacion+", Nombre Cliente: "+ this.nombreCliente + ", Dni Cliente: "+ this.dniCliente + ", Nombre Empresa: "+this.nombreEmpresa + ", Número de acciones a vender: " + this.numTitulosAVender+"\n" ;
     }
-
 }
 
 

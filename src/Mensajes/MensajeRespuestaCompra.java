@@ -61,6 +61,4 @@ public class MensajeRespuestaCompra extends MensajeCompra {
         if (efectuada) return this.idOperacion + "|" + this.nombreCliente + "|" + this.dniCliente + "|" + this.cadenaOperacionRealizada()+ "|" + this.cadenaNumAccionesCompradas() + "|" + this.cadenaPrecioDeAccion()+ "|" + this.cadenaDineroSobrante()+"|";
         else return this.idOperacion + "|" + this.nombreCliente + "|" + this.dniCliente + "|" + this.cadenaOperacionRealizada() + "|"+ "La empresa no existe en la bolsa"+"|";
     }
-
-
 }

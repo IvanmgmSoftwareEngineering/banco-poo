@@ -33,5 +33,4 @@ public class MensajeActualizacion extends Mensaje {
             */
 
     }
-
 }
