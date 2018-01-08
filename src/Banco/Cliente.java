@@ -1,43 +1,67 @@
 package Banco;
 
-import java.io.Serializable;
+import General.Utilidades;
+
 import java.util.HashSet;
 
 public class Cliente extends Persona {
-    protected float saldo;
+    //ZONA DE VARIABLES
+    protected double saldo;
     protected  boolean esPremium;
     protected HashSet<PaqueteDeAcciones> paquetesAcciones;
+    // FIN ZONA VALIABLES
 
-    public Cliente(String nombre, String dni, float saldo) {
+    //ZONA DE CONSTRUCTORES
+    public Cliente(String nombre, String dni, double saldo) {
         super(nombre, dni);
         this.saldo = saldo;
         this.esPremium = false;
+        this.paquetesAcciones = new HashSet<PaqueteDeAcciones>();
     }
-
-    // Este constructor esta para poder ser llamado desde la clase hija 'ClientePremium'
-    public Cliente(String nombre, String dni, float saldo,boolean esPremium) {
+    public Cliente(String nombre, String dni, double saldo,boolean esPremium) {
         super(nombre, dni);
         this.saldo = saldo;
         this.esPremium = esPremium;
+        this.paquetesAcciones = new HashSet<PaqueteDeAcciones>();
+    } // Este constructor esta para poder ser llamado desde la clase hija 'ClientePremium'
+    public Cliente(String nombre, String dni, double saldo,boolean esPremium,HashSet<PaqueteDeAcciones> paquetesAcciones) {
+        super(nombre, dni);
+        this.saldo = saldo;
+        this.esPremium = esPremium;
+        this.paquetesAcciones = paquetesAcciones;
     }
+    //FIN ZONA DE CONSTRUCTORES
 
-    public float getSaldo() {
+    //ZONA DE GETTERS
+    public double getSaldo() {
         return this.saldo;
     }
-
     public boolean isEsPremium() {
         return this.esPremium;
     }
-
-
-
-
-
-    public String toString (){
-        //faltan añadir las acciones entre saldo y acciones
-            return "Nombre Cliente: "+this.nombre + "  ||||  dni: "+this.dni +"  ||||Saldo: "+ this.saldo+ "    |||| Categoria: NO Premium"+"\n";
+    public HashSet<PaqueteDeAcciones> getPaquetesAcciones() {
+        return paquetesAcciones;
     }
+    //FIN ZONA DE GETTERS
 
+    //ZONA DE SETTERS
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+    //FIN ZONA DE SETTERS
+
+    //ZONA DE METODOS PUBLICOS
+    @Override
+    public String toString (){
+        if(paquetesAcciones.size()==0)
+            return  "   "+"Nombre Cliente: "+this.nombre + "  ||||  dni: "+this.dni +"  ||||Saldo: "+ Utilidades.formatoDinero(this.saldo)+ "    |||| Categoria: NO Premium"+ "    ||||Paquetes de Acciones: NO tiene"+ "\n"+"\n";
+
+        else {
+            return "  "+ "Nombre Cliente: " + this.nombre + "  ||||  dni: " + this.dni + "  ||||Saldo: " + Utilidades.formatoDinero(this.saldo) + "    |||| Categoria: NO Premium" + "    ||||Paquetes de Acciones: " + "\n" + paquetesAcciones.toString()+"\n" ;
+
+            }
+
+    }
     @Override
     public boolean equals (Object o) {
         if(o instanceof Cliente) {
@@ -45,10 +69,10 @@ public class Cliente extends Persona {
             return this.dni.equals(cliente.dni);
         }
         else return false;
-
     }
     @Override
     public int hashCode(){
         return this.dni.length();
     }
+    //FIN ZONA DE METODOS PUBLICOS
 }
